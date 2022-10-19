@@ -124,6 +124,8 @@ public class Network implements Serializable {
             c._terminalList.add(new FancyTerminal(idTerminal, idClient));
             c._terminals ++;
             return showTerminal(idTerminal);
+          default:
+            return null;
         }
       } 
     }

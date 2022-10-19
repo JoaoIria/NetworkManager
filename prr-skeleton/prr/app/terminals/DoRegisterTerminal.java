@@ -9,6 +9,11 @@ import prr.core.exception.InvTerminalKeyException;
 import prr.app.exception.UnknownClientKeyException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 //FIXME add more imports if needed
 
 /**
@@ -16,24 +21,29 @@ import pt.tecnico.uilib.menus.CommandException;
  */
 class DoRegisterTerminal extends Command<Network> {
 
+  protected List <String> types = new ArrayList<>();
+
   DoRegisterTerminal(Network receiver) {
     super(Label.REGISTER_TERMINAL, receiver);
     //FIXME add command fields
     addStringField("terminalKey", Message.terminalKey());
     addStringField("terminalType", Message.terminalType());
-    if (!stringField("terminalType").equals("BASIC") || !stringField("terminalType").equals("FANCY")){
-      addStringField("terminalType", Message.terminalType());
-    }
-    addStringField("clienKey", Message.clientKey());
+    addStringField("clientKey", Message.clientKey());
   }
 
   @Override
   protected final void execute() throws CommandException {
     //FIXME implement command
+
+    types.add("BASIC");
+    types.add("FANCY");
     
     String _terminaKey = stringField("terminalKey");
     String _terminalType = stringField("terminalType");
-    String _clientKey = stringField("clienKey");
+    while(!types.contains(_terminalType)){
+      _terminalType = stringField("terminalType");
+    }
+    String _clientKey = stringField("clientKey");
 
     try{
       _receiver.registerTerminal(_terminaKey, _terminalType, _clientKey);
