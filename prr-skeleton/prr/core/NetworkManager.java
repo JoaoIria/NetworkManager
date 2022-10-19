@@ -29,6 +29,7 @@ public class NetworkManager {
     return _network;
   }
 
+
   public void setLoadFile(String loadFile) {
     _loadFile = loadFile;
   }

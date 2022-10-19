@@ -23,14 +23,11 @@ class DoShowClient extends Command<Network> {
   protected final void execute() throws CommandException, UnknownClientKeyException{
 
     String key = stringField("ClientID");
-  
+
     _display.addLine(_receiver.showClientById(key));
     for (String notification : _receiver.getNotifications(key)){
       _display.addLine(notification);
-    }
+      }
     _display.display();
-    /*catch (NoNotificationsKeyException nnke){
-    throw new UnknownClientKeyException(key);
-    } */
   }
 }

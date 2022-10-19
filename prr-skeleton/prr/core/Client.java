@@ -11,7 +11,7 @@ public class Client implements Comparable<Client>{
     protected int _taxNumber;
     protected ClientLevel _level;
     protected boolean _receiveNotifications;
-    protected Terminal[] _terminalList;
+    protected List <Terminal> _terminalList = new ArrayList<>();
     protected int _terminals;
     protected int _payments;
     protected int _debts;

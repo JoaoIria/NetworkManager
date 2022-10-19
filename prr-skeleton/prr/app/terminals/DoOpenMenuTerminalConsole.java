@@ -1,6 +1,7 @@
 package prr.app.terminals;
 
 import prr.core.Network;
+import prr.core.NetworkManager;
 import prr.app.exception.UnknownTerminalKeyException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
@@ -14,6 +15,7 @@ class DoOpenMenuTerminalConsole extends Command<Network> {
   DoOpenMenuTerminalConsole(Network receiver) {
     super(Label.OPEN_MENU_TERMINAL, receiver);
     //FIXME add command fields
+    addStringField("idTerminal", Message.terminalKey());
   }
 
   @Override
@@ -21,5 +23,7 @@ class DoOpenMenuTerminalConsole extends Command<Network> {
     //FIXME implement command
     // create an instance of prr.app.terminal.Menu with the
     // selected Terminal and open it
+
+   /* (new prr.app.terminal.Menu(_receiver.).open();*/
   }
 }
