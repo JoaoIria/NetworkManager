@@ -22,7 +22,7 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
   protected double _debt;
   protected double _payments;
   protected TerminalMode _mode;
-  protected String[] _friends;
+  protected List<String> _friends;
   protected List <Notification> _notifications = new ArrayList<>();
 
   // FIXME define contructor(s)
