@@ -1,0 +1,142 @@
+package prr.core;
+import java.io.Serializable;
+import java.text.Normalizer.Form;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.io.IOException;
+
+import prr.app.exception.UnknownClientKeyException;
+import prr.core.exception.SameClientKeyException;
+import prr.core.exception.NoNotificationsKeyException;
+import prr.core.exception.UnrecognizedEntryException;
+
+// FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
+
+/**
+ * Class Store implements a store.
+ */
+public class Network implements Serializable {
+
+  /** Serial number for serialization. */
+  private static final long serialVersionUID = 202208091753L;
+
+  protected List <Client> _clients = new ArrayList<>();
+  protected List <Terminal> _terminals = new ArrayList<>();
+  protected List <Communication> _comunications = new ArrayList<>(); 
+  
+  // FIXME define attributes
+  // FIXME define contructor(s)
+  // FIXME define methods
+  
+
+  /**
+   * Constructor.
+   */ 
+
+  public Network(){
+    _clients = new ArrayList<>();
+  }
+
+
+  
+  public void registerClient(String key, String name, int taxNumber) throws SameClientKeyException{
+    Client _clientTemp = new Client(name, key ,taxNumber);
+    for(Client c :_clients){
+      if(c._key.equals(key)){
+        throw new SameClientKeyException();
+      }
+    }
+    _clients.add(_clientTemp);
+  }
+
+
+
+  public String showClientById(String key) throws UnknownClientKeyException {
+  
+    for(Client c :_clients){
+      if(c._key.equals(key)){
+        return(c.toString());
+      }  
+    }throw new UnknownClientKeyException(key);
+  }
+
+
+
+  public void addNotifications(Terminal t, Notification notification){
+    t._notifications.add(notification);
+  }
+
+
+
+  public void clearNotifications(Terminal t){
+    t._notifications.clear();
+  }
+
+
+
+  public List<String> getNotifications(String key) /*throws NoNotificationsKeyException*/{
+
+
+    List<String> getNots = new ArrayList<>();
+
+    for(Terminal t: _terminals){
+      if(t._clientId.equals(key)){
+        getNots.add(t._notifications.toString());
+        clearNotifications(t);
+      }
+    }
+    /*if(getNots.isEmpty()){
+      throw new NoNotificationsKeyException();
+    }*/
+    return getNots;
+  }
+
+
+  public List<String> showAllClients(){
+    List<String> list = new ArrayList<>();
+    Collections.sort(_clients);
+    for (Client c: _clients){
+      list.add(c.toString());
+    }
+    return list;
+  }
+
+
+  public Terminal registerTerminal(String idTerminal,String mode,String idClient){
+
+    /*switch(mode){
+      case "BASIC":
+      _terminals.add(new BasicTerminal(idTerminal, idClient));
+      case "FANCY":
+      _terminals.add(new FancyTerminal(idTerminal, idClient));
+    }
+    */
+    return null;
+  }
+
+
+  
+  public void addFriend(String s1, String s2){
+
+  }
+
+
+
+  public void sendTextCommunication(Terminal t, String key, String msg){
+   /** FORM?? */
+  }
+  
+  /**
+   * Read text input file and create corresponding domain entities.
+   * 
+   * @param filename name of the text input file
+   * @throws UnrecognizedEntryException if some entry is not correct
+   * @throws IOException if there is an IO erro while processing the text file
+   */
+  void importFile(String filename) throws UnrecognizedEntryException, IOException /* FIXME maybe other exceptions */  {
+    //FIXME implement method
+  }
+
+}
+
