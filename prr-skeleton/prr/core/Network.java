@@ -155,7 +155,7 @@ public class Network implements Serializable {
     return list;
   }
 
-  public List<String> showInactiveTerminal(){
+  public List<String> showUnusedTerminal(){
     List<String> list = new ArrayList<>();
     for(Terminal t : _terminals){
       if(t._comunications == null){
