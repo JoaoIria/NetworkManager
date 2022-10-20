@@ -1,5 +1,5 @@
-*** tests/A-08-06-M-ok.out	2022-10-05 21:24:49.207103000 +0100
---- tests/A-08-06-M-ok.outhyp	2022-10-19 22:38:51.829981489 +0100
+*** tests/A-08-06-M-ok.out	2022-10-20 15:03:05.341168404 +0100
+--- tests/A-08-06-M-ok.outhyp	2022-10-20 15:45:01.311891106 +0100
 ***************
 *** 16,25 ****
   2 - Registar terminal
@@ -16,7 +16,7 @@
   2 - Registar terminal
   3 - Operações de terminal
   0 - Sair
-! Escolha uma opção: prr.core.BasicTerminal@4dc63996
+! Escolha uma opção: BASIC|999000|cli001|IDLE|0|0
   GESTÃO DE TERMINAIS
   1 - Mostrar todos os terminais
   2 - Registar terminal

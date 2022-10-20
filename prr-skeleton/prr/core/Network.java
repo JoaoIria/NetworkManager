@@ -174,8 +174,7 @@ public class Network implements Serializable {
       if (t._id.equals(s1)){
           if(!t._friends.contains(s2)){
             t._friends.add(s2);
-          }
-        
+        }
       }
     }
   }

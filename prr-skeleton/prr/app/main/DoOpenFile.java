@@ -29,6 +29,8 @@ class DoOpenFile extends Command<NetworkManager> {
       _receiver.load(filename);
     } catch (UnavailableFileException ufe) {
       throw new FileOpenFailedException(ufe);
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
     }
   }
 }

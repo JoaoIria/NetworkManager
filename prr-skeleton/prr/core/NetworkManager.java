@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.ObjectOutputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 
 import prr.core.exception.ImportFileException;
 import prr.core.exception.MissingFileAssociationException;
@@ -48,10 +50,25 @@ public class NetworkManager {
    * @throws UnavailableFileException if the specified file does not exist or there is
    *         an error while processing this file.
    */
-  public void load(String filename) throws UnavailableFileException {
+  public void load(String filename) throws UnavailableFileException, ClassNotFoundException {
     //FIXME implement serialization method
+
+
+    try (ObjectInputStream objIn = new ObjectInputStream(new FileInputStream(filename))) {
+      Object anObject = objIn.readObject();
+      _network = (Network) anObject;
+      _filename = filename;
+
+    } catch (ClassNotFoundException cnfe) {
+      System.out.println(cnfe.getMessage()) ;
+    } catch (IOException e) {
+      throw new UnavailableFileException(filename);
+    }
+
   }
-  
+
+  /* ALTERADO EM 15/10 */
+
   /**
    * Saves the serialized application's state into the file associated to the current network.
    *
@@ -60,8 +77,6 @@ public class NetworkManager {
    * @throws IOException if there is some error while serializing the state of the network to disk.
    */
 
-
-  /* ALTERADO EM 15/10 */
 
   public void save(String filename) throws IOException, FileNotFoundException{
     if (!hasFileName())
@@ -92,8 +107,15 @@ public class NetworkManager {
    * @throws IOException if there is some error while serializing the state of the network to disk.
    */
   public void saveAs(String filename) throws FileNotFoundException, MissingFileAssociationException, IOException {
-    //FIXME implement serialization method
+    _filename = filename;
+    save(filename);
   }
+
+
+
+
+
+
   
   /**
    * Read text input file and create domain entities..

@@ -16,7 +16,7 @@ Escolha uma opção: Número do terminal: Tipo de terminal (BASIC ou FANCY): Ide
 2 - Registar terminal
 3 - Operações de terminal
 0 - Sair
-Escolha uma opção: prr.core.BasicTerminal@4dc63996
+Escolha uma opção: BASIC|999000|cli001|IDLE|0|0
 GESTÃO DE TERMINAIS
 1 - Mostrar todos os terminais
 2 - Registar terminal
