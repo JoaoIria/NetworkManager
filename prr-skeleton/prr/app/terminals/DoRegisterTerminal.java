@@ -21,38 +21,28 @@ import java.util.List;
  */
 class DoRegisterTerminal extends Command<Network> {
 
-  protected List <String> types = new ArrayList<>();
-
   DoRegisterTerminal(Network receiver) {
     super(Label.REGISTER_TERMINAL, receiver);
     //FIXME add command fields
     addStringField("terminalKey", Message.terminalKey());
-    addStringField("terminalType", Message.terminalType());
+    addOptionField("terminalType", Message.terminalType(), "FANCY", "BASIC");
     addStringField("clientKey", Message.clientKey());
   }
 
   @Override
   protected final void execute() throws CommandException {
-    //FIXME implement command
-
-    types.add("BASIC");
-    types.add("FANCY");
-    
-    String _terminaKey = stringField("terminalKey");
-    String _terminalType = stringField("terminalType");
-    while(!types.contains(_terminalType)){
-      _terminalType = stringField("terminalType");
-    }
-    String _clientKey = stringField("clientKey");
+    String terminaKey = stringField("terminalKey");
+    String terminalType = stringField("terminalType");
+    String clientKey = stringField("clientKey");
 
     try{
-      _receiver.registerTerminal(_terminaKey, _terminalType, _clientKey);
+      _receiver.registerTerminal(terminaKey, terminalType, clientKey);
     }catch(InvTerminalKeyException itke){
-      throw new InvalidTerminalKeyException(_clientKey);
+      throw new InvalidTerminalKeyException(clientKey);
     }catch(SameTerminalKeyException stke){
-      throw new DuplicateTerminalKeyException(_clientKey);
+      throw new DuplicateTerminalKeyException(clientKey);
     }catch(UnidentifiedClientKeyException ucke){
-      throw new UnknownClientKeyException(_clientKey);
+      throw new UnknownClientKeyException(clientKey);
     }
   }
 }

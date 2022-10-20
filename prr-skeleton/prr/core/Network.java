@@ -155,7 +155,15 @@ public class Network implements Serializable {
     return list;
   }
 
-
+  public List<String> showInactiveTerminal(){
+    List<String> list = new ArrayList<>();
+    for(Terminal t : _terminals){
+      if(t._comunications == null){
+        list.add(t.toString());
+      }
+    }
+    return list;
+  }
 
   public void addFriend(String s1, String s2){
 
