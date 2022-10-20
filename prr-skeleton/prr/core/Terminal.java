@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Abstract terminal.
  */
-abstract public class Terminal implements Serializable /* FIXME maybe addd more interfaces */{
+abstract public class Terminal implements Serializable, Comparable<Terminal> /* FIXME maybe addd more interfaces */{
 
   /** Serial number for serialization. */
   private static final long serialVersionUID = 202208091753L;
@@ -35,6 +35,10 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
     _mode = TerminalMode.IDLE;
   }
   // FIXME define methods
+  @Override
+  public int compareTo(Terminal t){
+      return Integer.valueOf(this._id).compareTo(Integer.valueOf(t._id));
+  }
 
 
   public void setOnSilent(){
