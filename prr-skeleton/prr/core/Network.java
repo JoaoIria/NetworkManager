@@ -151,6 +151,7 @@ public class Network implements Serializable {
   
   public List<String> showAllTerminals(){
     List<String> list = new ArrayList<>();
+    Collections.sort(_terminals);
     for (Terminal t: _terminals){
       list.add(t.toString());
     }
