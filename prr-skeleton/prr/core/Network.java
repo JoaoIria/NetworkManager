@@ -199,5 +199,8 @@ public class Network implements Serializable {
     } 
   }
 
+  public Network getNetwork() {
+    return this;
+  }
 }
 
