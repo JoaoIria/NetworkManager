@@ -1,10 +1,13 @@
 package prr.core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Client implements Comparable<Client>{
+public class Client implements Serializable, Comparable<Client>{
+
+    private static final long serialVersionUID = 202208091753L;
     
     protected String _key;
     protected String _name;
@@ -44,6 +47,6 @@ public class Client implements Comparable<Client>{
 
     @Override
     public int compareTo(Client c){
-        return Integer.valueOf(this._key).compareTo(Integer.valueOf(c._key));
+        return String.valueOf(this._key).compareTo(String.valueOf(c._key));
     }
 }

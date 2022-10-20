@@ -6,9 +6,9 @@ import prr.core.Terminal;
 /**
  * Terminal console menu.
  */
-public final class Menu extends pt.tecnico.uilib.menus.Menu {
+public final class MenuExtra extends pt.tecnico.uilib.menus.Menu {
 
-  public Menu(Network network, Terminal terminal) {
+  public MenuExtra(Network network, Terminal terminal) {
       super(Label.TITLE, //
             new DoTurnOnTerminal(network, terminal), //
             new DoSilenceTerminal(network, terminal), //

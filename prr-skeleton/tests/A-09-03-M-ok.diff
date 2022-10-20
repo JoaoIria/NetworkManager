@@ -1,61 +1,32 @@
-*** tests/A-09-03-M-ok.out	2022-10-20 15:03:05.341168404 +0100
---- tests/A-09-03-M-ok.outhyp	2022-10-20 16:43:49.319729683 +0100
+*** tests/A-09-03-M-ok.out	2022-10-20 21:56:57.209693907 +0100
+--- tests/A-09-03-M-ok.outhyp	2022-10-21 00:58:49.374499722 +0100
 ***************
-*** 19,73 ****
-  5 - Retirar amigo
-  6 - Pagamento
+*** 21,26 ****
+--- 21,27 ----
   7 - Consultar saldo
-- 8 - Enviar comunicação de texto
-- 9 - Iniciar comunicação
-- 11 - Mostrar comunicação em curso
-- 0 - Sair
-- Escolha uma opção: GESTÃO DE TERMINAIS
-- 1 - Mostrar todos os terminais
-- 2 - Registar terminal
-- 3 - Operações de terminal
-- 0 - Sair
-- Escolha uma opção: Número do terminal: OPERAÇÕES DO TERMINAL
-- 1 - Ligar
-- 2 - Colocar no silêncio
-- 3 - Desligar
-- 4 - Adicionar amigo
-- 5 - Retirar amigo
-- 6 - Pagamento
-- 7 - Consultar saldo
-- 8 - Enviar comunicação de texto
-- 9 - Iniciar comunicação
-- 11 - Mostrar comunicação em curso
-- 0 - Sair
-- Escolha uma opção: GESTÃO DE TERMINAIS
-- 1 - Mostrar todos os terminais
-- 2 - Registar terminal
-- 3 - Operações de terminal
-- 0 - Sair
-- Escolha uma opção: Número do terminal: OPERAÇÕES DO TERMINAL
-- 1 - Ligar
-- 2 - Colocar no silêncio
-- 3 - Desligar
-- 4 - Adicionar amigo
-- 5 - Retirar amigo
-- 6 - Pagamento
-- 7 - Consultar saldo
-- 8 - Enviar comunicação de texto
-- 9 - Iniciar comunicação
-- 11 - Mostrar comunicação em curso
-- 0 - Sair
-- Escolha uma opção: GESTÃO DE TERMINAIS
-- 1 - Mostrar todos os terminais
-- 2 - Registar terminal
-- 3 - Operações de terminal
-- 0 - Sair
-- Escolha uma opção: MENU PRINCIPAL
-- 1 - Abrir
-- 2 - Guardar
-- 3 - Gestão de clientes
-- 4 - Gestão de terminais
-- 5 - Menu de consultas
-- 6 - Ver saldo global
-- 0 - Sair
-- Escolha uma opção: 
-\ Sem newline no fim do ficheiro
---- 19,21 ----
+  8 - Enviar comunicação de texto
+  9 - Iniciar comunicação
++ 10 - Terminar comunicação activa
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: GESTÃO DE TERMINAIS
+***************
+*** 38,43 ****
+--- 39,45 ----
+  7 - Consultar saldo
+  8 - Enviar comunicação de texto
+  9 - Iniciar comunicação
++ 10 - Terminar comunicação activa
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: GESTÃO DE TERMINAIS
+***************
+*** 55,60 ****
+--- 57,63 ----
+  7 - Consultar saldo
+  8 - Enviar comunicação de texto
+  9 - Iniciar comunicação
++ 10 - Terminar comunicação activa
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: GESTÃO DE TERMINAIS

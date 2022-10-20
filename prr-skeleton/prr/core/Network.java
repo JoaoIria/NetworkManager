@@ -10,10 +10,13 @@ import prr.app.exception.UnknownClientKeyException;
 import prr.core.exception.SameClientKeyException;
 import prr.core.exception.NoNotificationsKeyException;
 import prr.core.exception.UnrecognizedEntryException;
+import pt.tecnico.uilib.Display;
 import prr.core.exception.UnidentifiedClientKeyException;
 import prr.core.exception.SameTerminalKeyException;
 import prr.core.exception.InvTerminalKeyException;
 import prr.core.exception.InvTerminalKeyException;
+import prr.core.exception.TerminalAlreadyOffException;
+import prr.core.exception.UnkTerminalIdException;
 
 
 // FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
@@ -106,11 +109,17 @@ public class Network implements Serializable {
     return list;
   }
 
-  public Terminal registerTerminal(String idTerminal,String mode,String idClient) throws 
-  UnidentifiedClientKeyException, SameTerminalKeyException, InvTerminalKeyException{
+  public Terminal registerTerminal(String mode,String idTerminal,String idClient) throws 
+  UnidentifiedClientKeyException, SameTerminalKeyException, InvTerminalKeyException,UnkTerminalIdException{
 
     if(idTerminal.length() != 6){
       throw new InvTerminalKeyException();
+    }
+    
+    for(Terminal t: _terminals){
+      if(t._id.equals(idTerminal)){
+        throw new SameTerminalKeyException();
+      }
     }
 
     for(Client c: _clients){
@@ -131,22 +140,32 @@ public class Network implements Serializable {
         }
       } 
     }
-    for(Terminal t: _terminals){
-      if(t._id.equals(idTerminal)){
-        throw new SameTerminalKeyException();
-      }
-    }
     throw new UnidentifiedClientKeyException();
   }
 
-  public Terminal showTerminal(String idTerminal){
+  public Terminal showTerminal(String idTerminal) throws UnkTerminalIdException{
     for(Terminal t : _terminals){
       if(t._id.equals(idTerminal)){
         return t;
       }
     }
-    return null;
+    throw new UnkTerminalIdException();
   }
+
+
+  public void TurnOffTerminal(String idTerminal){
+    /*
+    for(Terminal t: _terminals){
+      if(t._id.equals(idTerminal)){
+        if(t._mode != TerminalMode.OFF){
+          t._mode = TerminalMode.OFF;
+        }
+        else{
+          throw new TerminalAlreadyOffException();
+        }
+      }
+    }*/
+  } 
 
   
   public List<String> showAllTerminals(){
@@ -184,6 +203,8 @@ public class Network implements Serializable {
   public void sendTextCommunication(Terminal t, String key, String msg){
    /** FORM?? */
   }
+
+  
   
   /**
    * Read text input file and create corresponding domain entities.

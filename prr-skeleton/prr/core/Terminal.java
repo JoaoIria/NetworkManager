@@ -42,11 +42,15 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> /* 
 
 
   public void setOnSilent(){
-
+    _mode = TerminalMode.SILENCE;
   }
   
   public void turnOff(){
-    
+    _mode = TerminalMode.OFF;
+  }
+
+  public List <Communication> getCommunications(){
+    return _comunications;
   }
 
   /**

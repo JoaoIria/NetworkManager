@@ -3,7 +3,9 @@ package prr.app.terminals;
 import prr.core.Network;
 import prr.app.exception.DuplicateTerminalKeyException;
 import prr.app.exception.InvalidTerminalKeyException;
+import prr.app.exception.UnknownTerminalKeyException;
 import prr.core.exception.UnidentifiedClientKeyException;
+import prr.core.exception.UnkTerminalIdException;
 import prr.core.exception.SameTerminalKeyException;
 import prr.core.exception.InvTerminalKeyException;
 import prr.app.exception.UnknownClientKeyException;
@@ -30,19 +32,21 @@ class DoRegisterTerminal extends Command<Network> {
   }
 
   @Override
-  protected final void execute() throws CommandException {
-    String terminaKey = stringField("terminalKey");
+  protected final void execute() throws CommandException{
+    String terminalKey = stringField("terminalKey");
     String terminalType = stringField("terminalType");
     String clientKey = stringField("clientKey");
 
     try{
-      _receiver.registerTerminal(terminaKey, terminalType, clientKey);
+      _receiver.registerTerminal(terminalType, terminalKey, clientKey);
     }catch(InvTerminalKeyException itke){
-      throw new InvalidTerminalKeyException(clientKey);
+      throw new InvalidTerminalKeyException(terminalKey);
     }catch(SameTerminalKeyException stke){
-      throw new DuplicateTerminalKeyException(clientKey);
+      throw new DuplicateTerminalKeyException(terminalKey);
     }catch(UnidentifiedClientKeyException ucke){
       throw new UnknownClientKeyException(clientKey);
+    } catch(UnkTerminalIdException ukie){
+      throw new UnknownTerminalKeyException(terminalKey);
     }
   }
 }

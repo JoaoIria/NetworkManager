@@ -3,6 +3,7 @@ package prr.core;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.ObjectOutputStream;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
@@ -53,10 +54,11 @@ public class NetworkManager {
   public void load(String filename) throws UnavailableFileException, ClassNotFoundException {
     //FIXME implement serialization method
 
-
-    try (ObjectInputStream objIn = new ObjectInputStream(new FileInputStream(filename))) {
-      Object anObject = objIn.readObject();
-      _network = (Network) anObject;
+    try {
+      ObjectInputStream textfile = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)));
+      Network n = (Network)textfile.readObject();
+      textfile.close();
+      _network = n;
       _filename = filename;
 
     } catch (ClassNotFoundException cnfe) {
