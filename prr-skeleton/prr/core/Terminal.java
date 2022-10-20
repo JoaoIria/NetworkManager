@@ -31,6 +31,7 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
     _id = id;
     _debt = 0;
     _payments = 0;
+    _clientId = clientId;
     _mode = TerminalMode.IDLE;
   }
   // FIXME define methods
