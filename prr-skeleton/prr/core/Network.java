@@ -41,6 +41,8 @@ public class Network implements Serializable {
 
   public Network(){
     _clients = new ArrayList<>();
+    _terminals = new ArrayList<>();
+    _comunications = new ArrayList<>();
   }
 
 
