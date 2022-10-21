@@ -18,32 +18,55 @@ import prr.core.exception.UnrecognizedEntryException;
 /**
  * Manage access to network and implement load/save operations.
  */
+
 public class NetworkManager {
 
   private String _filename = "";
   private String _loadFile = new String();
-
   private Network _network = new Network();
-  //FIXME  addmore fields if needed
 
-  
+  /**
+   * @return Returns the network
+  */
+
   public Network getNetwork() {
     return _network;
   }
 
+  /**
+   * Sets a file name
+   * 
+   * @param loadFile "filename"
+  */
 
   public void setLoadFile(String loadFile) {
     _loadFile = loadFile;
   }
 
+
+  /**
+   * See if the file already has name.
+   * 
+   * @return true if the file has name and false if not
+  */
+
+
   public boolean hasFileName() {
     return !"".equals(_filename);
   } 
+
+
+  /**
+   * Gets the filename.
+   * 
+   * @return file name
+  */
 
   public String getFilename() {
     return _filename;
   }
   
+
   /**
    * @param filename name of the file containing the serialized application's state
    *        to load.
@@ -51,7 +74,6 @@ public class NetworkManager {
    *         an error while processing this file.
    */
   public void load(String filename) throws UnavailableFileException, ClassNotFoundException {
-    //FIXME implement serialization method
 
     try {
       ObjectInputStream textfile = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)));
@@ -65,10 +87,7 @@ public class NetworkManager {
     } catch (IOException e) {
       throw new UnavailableFileException(filename);
     }
-
   }
-
-  /* ALTERADO EM 15/10 */
 
   /**
    * Saves the serialized application's state into the file associated to the current network.
@@ -97,7 +116,6 @@ public class NetworkManager {
   }
   
 
-
   /**
    * Saves the serialized application's state into the specified file. The current network is
    * associated to this file.
@@ -111,13 +129,8 @@ public class NetworkManager {
     _filename = filename;
     save(filename);
   }
-
-
-
-
-
-
   
+
   /**
    * Read text input file and create domain entities..
    * 

@@ -21,7 +21,7 @@ import prr.core.exception.UnkTerminalIdException;
 
 
 /**
- * Class Networks implements a serializable.
+ * Class Network implements a serializable.
  */
 public class Network implements Serializable {
 
@@ -256,8 +256,8 @@ public class Network implements Serializable {
    /**
    * Adds a terminal friend to a terminal
    * 
-   * @param s1 "Terminal ID form the one that will receive the friend"
-   * @param s2 "Terminal ID form the one that will be added as a friend"
+   * @param s1 "Terminal ID from the one that will receive the friend"
+   * @param s2 "Terminal ID from the one that will be added as a friend"
    */ 
 
   public void addFriend(String s1, String s2){
