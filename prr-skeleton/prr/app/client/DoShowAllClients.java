@@ -8,7 +8,6 @@ import prr.core.Network;
 import java.util.ArrayList;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME add more imports if needed
 
 /**
  * Show all clients.

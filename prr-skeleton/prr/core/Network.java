@@ -18,7 +18,7 @@ import prr.core.exception.TerminalAlreadyOffException;
 import prr.core.exception.UnkTerminalIdException;
 
 
-// FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
+
 
 /**
  * Class Store implements a store.
@@ -32,12 +32,6 @@ public class Network implements Serializable {
   private List <Terminal> _terminals = new ArrayList<>();
   private List <Communication> _comunications = new ArrayList<>();
 
-  
-  // FIXME define attributes
-  // FIXME define contructor(s)
-  // FIXME define methods
-  
-
   /**
    * Constructor.
    */ 
@@ -48,7 +42,17 @@ public class Network implements Serializable {
     _comunications = new ArrayList<>();
   }
 
-
+ /**
+   * Register client on the network.
+   * 
+   * @param key "Client ID"
+   * @param name "Client name"
+   * @param taxNumber "Client Tax Number"
+   * 
+   * @throws SameClientKeyException if Client Id already exists
+   * 
+   * @return void
+   */ 
   
   public void registerClient(String key, String name, int taxNumber) throws SameClientKeyException{
     Client _clientTemp = new Client(name, key ,taxNumber);
@@ -60,7 +64,15 @@ public class Network implements Serializable {
     _clients.add(_clientTemp);
   }
 
-
+ /**
+   * Shows a client by his id.
+   * 
+   * @param key "Client ID"
+   * 
+   * @throws UnknownClientKeyException if Client Id doesn't exists
+   * 
+   * @return Client in String format
+   */ 
 
   public String showClientById(String key) throws UnknownClientKeyException {
   
@@ -71,21 +83,40 @@ public class Network implements Serializable {
     }throw new UnknownClientKeyException(key);
   }
 
-
+ /**
+   * Adds a notification to a specific terminal.
+   * 
+   * @param t "Terminal"
+   * @param notification "notification"
+   * 
+   * @return notification in terminal t
+   */ 
 
   public void addNotifications(Terminal t, Notification notification){
     t.addNotification(notification);
   }
 
-
+ /**
+   * Clear all notifications from a specific terminal.
+   * 
+   * @param t "Terminal"
+   * 
+   * @return all notifications erased
+   */ 
 
   public void clearNotifications(Terminal t){
     t.clearAllNotifications();
   }
 
+ /**
+   * Get all notifications from a specific terminal.
+   * 
+   * @param key "Terminal Client ID"
+   * 
+   * @return all notifications
+   */ 
 
-
-  public List<String> getNotifications(String key) /*throws NoNotificationsKeyException*/{
+  public List<String> getNotifications(String key){
 
 
     List<String> getNots = new ArrayList<>();
@@ -99,6 +130,12 @@ public class Network implements Serializable {
     return getNots;
   }
 
+   /**
+   * Show all clients from the network.
+   * 
+   * @return all clients
+   */ 
+
 
   public List<String> showAllClients(){
     List<String> list = new ArrayList<>();
@@ -108,6 +145,24 @@ public class Network implements Serializable {
     }
     return list;
   }
+
+
+ /**
+   * Register client on the network.
+   * 
+   * @param mode "Terminal Mode"
+   * @param idTerminal "Terminal ID"
+   * @param idClient "Terminal Client ID"
+   * 
+   * @throws UnidentifiedClientKeyException if the client id doesn't exist
+   * @throws SameTerminalKeyException if the terminal id already exists
+   * @throws InvTerminalKeyException if the terminal id is invalid
+   * @throws UnkTerminalIdException if terminal id doesn't exist
+   * 
+   * @return adds the terminal to the list of terminals in network
+   * and to client list of terminals
+   */ 
+
 
   public Terminal registerTerminal(String mode,String idTerminal,String idClient) throws 
   UnidentifiedClientKeyException, SameTerminalKeyException, InvTerminalKeyException,UnkTerminalIdException{
@@ -128,12 +183,10 @@ public class Network implements Serializable {
           case "BASIC":
             _terminals.add(new BasicTerminal(idTerminal, idClient));
             c.addTerminal(new BasicTerminal(idTerminal, idClient));
-            c.addNumTerminal();
             return showTerminal(idTerminal);
           case "FANCY":
             _terminals.add(new FancyTerminal(idTerminal, idClient));
             c.addTerminal(new FancyTerminal(idTerminal, idClient));
-            c.addNumTerminal();
             return showTerminal(idTerminal);
           default:
             return null;
@@ -142,6 +195,18 @@ public class Network implements Serializable {
     }
     throw new UnidentifiedClientKeyException();
   }
+
+
+   /**
+   * Show the terminal by its id
+   * 
+   * @param idTerminal "Terminal ID"
+   * 
+   * @throws UnkTerminalIdException if terminal id doesn't exist
+   * 
+   * @return the terminal with the specific id
+   */ 
+
 
   public Terminal showTerminal(String idTerminal) throws UnkTerminalIdException{
     for(Terminal t : _terminals){
@@ -156,6 +221,12 @@ public class Network implements Serializable {
   public void TurnOffTerminal(String idTerminal){
   } 
 
+
+   /**
+   * Show all the terminals
+   * 
+   * @return the list of all terminals sorted
+   */ 
   
   public List<String> showAllTerminals(){
     List<String> list = new ArrayList<>();
@@ -166,6 +237,12 @@ public class Network implements Serializable {
     return list;
   }
 
+   /**
+   * Show all unused terminals
+   * 
+   * @return the list of all terminals 
+   */ 
+
   public List<String> showUnusedTerminal(){
     List<String> list = new ArrayList<>();
     for(Terminal t : _terminals){
@@ -175,6 +252,13 @@ public class Network implements Serializable {
     }
     return list;
   }
+
+   /**
+   * Adds a terminal friend to a terminal
+   * 
+   * @param s1 "Terminal ID form the one that will receive the friend"
+   * @param s2 "Terminal ID form the one that will be added as a friend"
+   */ 
 
   public void addFriend(String s1, String s2){
 
@@ -188,9 +272,11 @@ public class Network implements Serializable {
   }
 
 
+   /**  -------------------------------------------------------- **
+   *                        NOT DONE YET 
+   * ------------------------------------------------------------*/ 
 
   public void sendTextCommunication(Terminal t, String key, String msg){
-   /** FORM?? */
   }
 
   
@@ -199,9 +285,11 @@ public class Network implements Serializable {
    * Read text input file and create corresponding domain entities.
    * 
    * @param filename name of the text input file
+   * 
    * @throws UnrecognizedEntryException if some entry is not correct
    * @throws IOException if there is an IO erro while processing the text file
    */
+
   void importFile(String filename) throws UnrecognizedEntryException, IOException /* FIXME maybe other exceptions */  {
     Parser parser = new Parser(this);
     try{
@@ -210,6 +298,11 @@ public class Network implements Serializable {
       throw e;
     } 
   }
+
+
+    /**
+   * @return Returns the network we are working in.
+   */
 
   public Network getNetwork() {
     return this;

@@ -4,10 +4,18 @@ import java.lang.Math;
 
 public class BasicTerminal extends Terminal{
 
-    public BasicTerminal(String id, String clientId){ //não sei se precisa de ter o clientID
+
+   /**
+     * Constructor
+     */ 
+
+    public BasicTerminal(String id, String clientId){ 
         super(id, clientId);
     }
 
+    /**
+      * @return the basic terminal in format of string
+      */
 
     @Override
     public String toString(){

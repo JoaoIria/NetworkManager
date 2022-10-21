@@ -19,6 +19,11 @@ public class Client implements Serializable, Comparable<Client>{
     private int _debts;
 
 
+
+   /**
+   * Constructor
+   */ 
+
     public Client(String name,String key, int taxNumber){
         _name = name;
         _key = key;
@@ -30,29 +35,68 @@ public class Client implements Serializable, Comparable<Client>{
         _debts = 0;
     }
     
+
+   /**
+   * Gets the Name of the Client
+   *
+   * @return the Name of the CLien
+   */ 
+
     public String getClientName(){
         return _name;
     }
+
+
+   /**
+   * Gets the List of Terminals associated to the Client
+   *
+   * @return the List of Terminals associated to the Client
+   */ 
 
     public List <Terminal> getTeminalList(){
         return _terminalList;
     }
 
+
+   /**
+   * Gets the Client's Id
+   *
+   * @return the Client's Id
+   */ 
+
     public String getClientID(){
         return _key;
     }
+
+
+   /**
+   * Gets the number of Terminals associated to the Client
+   *
+   * @return the number of Terminals associated to the Client
+   */ 
 
     public int getNumTerminals(){
         return _terminals;
     }
 
+
+   /**
+   * Adds a Terminal to the Client's Terminal List and increments the number of Tereminals assiciated to the Client
+   *
+   * @param t "Terminal"
+   */ 
+
     public void addTerminal(Terminal t){
         _terminalList.add(t);
-    }
-
-    public void addNumTerminal(){
         _terminals ++;
     }
+
+
+   /**
+   * Transforms a Client into a String
+   *
+   * @return a String corresponding to the Client
+   */ 
 
     @Override
     public String toString(){
@@ -67,6 +111,15 @@ public class Client implements Serializable, Comparable<Client>{
         this._level.name()+"|"+notificationState+"|"+Integer.valueOf(this._terminals)+"|"+
       +Integer.valueOf(this._payments)+"|"+Integer.valueOf(this._debts));
     }
+
+
+   /**
+   * Compares the Id of two Clients
+   * 
+   * @param c "Client"
+   *
+   * @return 0 or 1
+   */ 
 
     @Override
     public int compareTo(Client c){

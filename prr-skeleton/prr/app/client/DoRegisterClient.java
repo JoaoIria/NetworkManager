@@ -3,15 +3,14 @@ package prr.app.client;
 import prr.core.Network;
 import prr.core.exception.SameClientKeyException;
 import prr.app.exception.DuplicateClientKeyException;
-/** import prr.core.exception.SameClientKeyException; */
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME add more imports if needed
 
 /**
  * Register new client.
  */
+
 class DoRegisterClient extends Command<Network> {
 
   DoRegisterClient(Network receiver) {
@@ -24,7 +23,6 @@ class DoRegisterClient extends Command<Network> {
   
   @Override
   protected final void execute() throws CommandException, DuplicateClientKeyException {
-    //FIXME implement command
 
     String _key = stringField("key");
     String _name = stringField("name");

@@ -7,7 +7,6 @@ import prr.core.exception.NoNotificationsKeyException;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME add more imports if needed
 
 /**
  * Show specific client: also show previous notifications.
