@@ -21,7 +21,7 @@ import prr.core.exception.UnkTerminalIdException;
 
 
 /**
- * Class Store implements a store.
+ * Class Networks implements a serializable.
  */
 public class Network implements Serializable {
 
