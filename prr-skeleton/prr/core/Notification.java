@@ -2,13 +2,17 @@ package prr.core;
 
 public class Notification{
 
-	protected NotificationType _notificationType;
+	private NotificationType _notificationType;
 
 	/**
 	 * Constructor.
 	 */
 	public Notification(NotificationType type) {
 		_notificationType = type;
+	}
+
+	public NotificationType getNotificationType(){
+		return _notificationType;
 	}
 
 	@Override

@@ -9,13 +9,13 @@ public class FancyTerminal extends Terminal{
 
     @Override
     public String toString(){
-        if(this._friends == null){
-            return("FANCY"+"|"+this._id+"|"+this._clientId+"|"+this._mode.name()+"|"+Long.toString(Math.round(this._payments))
-            +"|"+Long.toString(Math.round(this._debt)));
+        if(this.getFriends() == null){
+            return("FANCY"+"|"+this.getTerminalID()+"|"+this.getTerminalClientID()+"|"+this.getTerminalMode().name()+"|"+Long.toString(Math.round(this.getTerminalPayments()))
+            +"|"+Long.toString(Math.round(this.getTerminalDebts())));
         }
         else{
-            return("FANCY"+"|"+this._id+"|"+this._clientId+"|"+this._mode.name()+"|"+Long.toString(Math.round(this._payments))
-            +"|"+Long.toString(Math.round(this._debt))+"|"+this._friends).toString();
+            return("FANCY"+"|"+this.getTerminalID()+"|"+this.getTerminalClientID()+"|"+this.getTerminalMode().name()+"|"+Long.toString(Math.round(this.getTerminalPayments()))
+            +"|"+Long.toString(Math.round(this.getTerminalDebts()))+"|"+this.getFriends()).toString();
         }
     }
 }

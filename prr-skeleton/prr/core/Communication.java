@@ -7,5 +7,9 @@ public class Communication {
     public String returnIDPartida(){
         return _idPartida;
     }
+
+    public String returnIDChegada(){
+        return _idChegada;
+    }
     
 }

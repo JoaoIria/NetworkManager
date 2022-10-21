@@ -2,10 +2,7 @@ package prr.core;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
-import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 // FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
 
@@ -19,14 +16,14 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> /* 
   
   // FIXME define attributes
 
-  protected String _clientId;
-  protected String _id;
-  protected double _debt;
-  protected double _payments;
-  protected TerminalMode _mode;
-  protected List <String> _friends;
-  protected List <Notification> _notifications = new ArrayList<>();
-  protected List <Communication> _comunications = new ArrayList<>();
+  private String _clientId;
+  private String _id;
+  private double _debt;
+  private double _payments;
+  private TerminalMode _mode;
+  private List <String> _friends;
+  private List <Notification> _notifications = new ArrayList<>();
+  private List <Communication> _comunications = new ArrayList<>();
 
   // FIXME define contructor(s)
   public Terminal(String id, String clientId){
@@ -42,6 +39,37 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> /* 
       return Integer.valueOf(this._id).compareTo(Integer.valueOf(t._id));
   }
 
+  public double getTerminalPayments(){
+    return _payments;
+  }
+
+  public double getTerminalDebts(){
+    return _debt;
+  }
+
+  public TerminalMode getTerminalMode(){
+    return _mode;
+  }
+
+  public String getTerminalID(){
+    return _id;
+  }
+
+  public String getTerminalClientID(){
+    return _clientId;
+  }
+
+  public List <Notification> getNotificiations(){
+    return _notifications;
+  }
+
+  public void addNotification(Notification n){
+    _notifications.add(n);
+  }
+
+  public void clearAllNotifications(){
+    _notifications.clear();
+  }
 
   public void setOnSilent(){
     _mode = TerminalMode.SILENCE;
@@ -55,6 +83,9 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> /* 
     return _comunications;
   }
 
+  public List <String> getFriends(){
+    return _friends;
+  }
   /**
    * Checks if this terminal can end the current interactive communication.
    *

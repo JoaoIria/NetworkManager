@@ -14,7 +14,6 @@ import pt.tecnico.uilib.Display;
 import prr.core.exception.UnidentifiedClientKeyException;
 import prr.core.exception.SameTerminalKeyException;
 import prr.core.exception.InvTerminalKeyException;
-import prr.core.exception.InvTerminalKeyException;
 import prr.core.exception.TerminalAlreadyOffException;
 import prr.core.exception.UnkTerminalIdException;
 
@@ -29,9 +28,10 @@ public class Network implements Serializable {
   /** Serial number for serialization. */
   private static final long serialVersionUID = 202208091753L;
 
-  protected List <Client> _clients = new ArrayList<>();
-  protected List <Terminal> _terminals = new ArrayList<>();
-  protected List <Communication> _comunications = new ArrayList<>(); 
+  private List <Client> _clients = new ArrayList<>();
+  private List <Terminal> _terminals = new ArrayList<>();
+  private List <Communication> _comunications = new ArrayList<>();
+
   
   // FIXME define attributes
   // FIXME define contructor(s)
@@ -53,7 +53,7 @@ public class Network implements Serializable {
   public void registerClient(String key, String name, int taxNumber) throws SameClientKeyException{
     Client _clientTemp = new Client(name, key ,taxNumber);
     for(Client c :_clients){
-      if(c._key.equals(key)){
+      if(c.getClientID().equals(key)){
         throw new SameClientKeyException();
       }
     }
@@ -65,7 +65,7 @@ public class Network implements Serializable {
   public String showClientById(String key) throws UnknownClientKeyException {
   
     for(Client c :_clients){
-      if(c._key.equals(key)){
+      if(c.getClientID().equals(key)){
         return(c.toString());
       }  
     }throw new UnknownClientKeyException(key);
@@ -74,13 +74,13 @@ public class Network implements Serializable {
 
 
   public void addNotifications(Terminal t, Notification notification){
-    t._notifications.add(notification);
+    t.addNotification(notification);
   }
 
 
 
   public void clearNotifications(Terminal t){
-    t._notifications.clear();
+    t.clearAllNotifications();
   }
 
 
@@ -91,8 +91,8 @@ public class Network implements Serializable {
     List<String> getNots = new ArrayList<>();
 
     for(Terminal t: _terminals){
-      if(t._clientId.equals(key)){
-        getNots.add(t._notifications.toString());
+      if(t.getTerminalClientID().equals(key)){
+        getNots.add(t.getNotificiations().toString());
         clearNotifications(t);
       }
     }
@@ -117,23 +117,23 @@ public class Network implements Serializable {
     }
     
     for(Terminal t: _terminals){
-      if(t._id.equals(idTerminal)){
+      if(t.getTerminalID().equals(idTerminal)){
         throw new SameTerminalKeyException();
       }
     }
 
     for(Client c: _clients){
-      if(c._key.equals(idClient)){
+      if(c.getClientID().equals(idClient)){
         switch(mode){
           case "BASIC":
             _terminals.add(new BasicTerminal(idTerminal, idClient));
-            c._terminalList.add(new BasicTerminal(idTerminal, idClient));
-            c._terminals ++;
+            c.addTerminal(new BasicTerminal(idTerminal, idClient));
+            c.addNumTerminal();
             return showTerminal(idTerminal);
           case "FANCY":
             _terminals.add(new FancyTerminal(idTerminal, idClient));
-            c._terminalList.add(new FancyTerminal(idTerminal, idClient));
-            c._terminals ++;
+            c.addTerminal(new FancyTerminal(idTerminal, idClient));
+            c.addNumTerminal();
             return showTerminal(idTerminal);
           default:
             return null;
@@ -145,7 +145,7 @@ public class Network implements Serializable {
 
   public Terminal showTerminal(String idTerminal) throws UnkTerminalIdException{
     for(Terminal t : _terminals){
-      if(t._id.equals(idTerminal)){
+      if(t.getTerminalID().equals(idTerminal)){
         return t;
       }
     }
@@ -154,17 +154,6 @@ public class Network implements Serializable {
 
 
   public void TurnOffTerminal(String idTerminal){
-    /*
-    for(Terminal t: _terminals){
-      if(t._id.equals(idTerminal)){
-        if(t._mode != TerminalMode.OFF){
-          t._mode = TerminalMode.OFF;
-        }
-        else{
-          throw new TerminalAlreadyOffException();
-        }
-      }
-    }*/
   } 
 
   
@@ -180,7 +169,7 @@ public class Network implements Serializable {
   public List<String> showUnusedTerminal(){
     List<String> list = new ArrayList<>();
     for(Terminal t : _terminals){
-      if(t._comunications.isEmpty()){
+      if(t.getCommunications().isEmpty()){
         list.add(t.toString());
       }
     }
@@ -190,9 +179,9 @@ public class Network implements Serializable {
   public void addFriend(String s1, String s2){
 
     for(Terminal t: _terminals){
-      if (t._id.equals(s1)){
-          if(!t._friends.contains(s2)){
-            t._friends.add(s2);
+      if (t.getTerminalID().equals(s1)){
+          if(!t.getFriends().contains(s2)){
+            t.getFriends().add(s2);
         }
       }
     }
