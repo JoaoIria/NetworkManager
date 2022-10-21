@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.text.StyledEditorKit.ForegroundAction;
+
 // FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
 
 /**
@@ -61,7 +63,14 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> /* 
    **/
   public boolean canEndCurrentCommunication() {
     // FIXME add implementation code
-    return true;
+    if(_mode.name().equals("BUSY")){
+      for(Communication c: _comunications){
+        if(c.returnIDPartida().equals(this._id)){
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   /**
@@ -71,6 +80,9 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> /* 
    **/
   public boolean canStartCommunication() {
     // FIXME add implementation code
+    if(_mode.name().equals("BUSY") || _mode.name().equals("OFF") ){
+      return false;
+    }
     return true;
   }
 }

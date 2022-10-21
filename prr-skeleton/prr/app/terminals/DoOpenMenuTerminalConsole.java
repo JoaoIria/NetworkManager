@@ -28,12 +28,7 @@ class DoOpenMenuTerminalConsole extends Command<Network> {
     String terminalID = stringField("idTerminal");
     
     try{
-      if(_receiver.showTerminal(terminalID).getCommunications().isEmpty()){
-        (new prr.app.terminal.MenuExtra(_receiver.getNetwork(), _receiver.showTerminal(terminalID))).open();
-      }
-      else{
         (new prr.app.terminal.Menu(_receiver.getNetwork(), _receiver.showTerminal(terminalID))).open();
-      }
     } catch(UnkTerminalIdException ukie){
       throw new UnknownTerminalKeyException(terminalID);
     }
