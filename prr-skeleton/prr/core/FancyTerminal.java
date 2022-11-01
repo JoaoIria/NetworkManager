@@ -17,13 +17,14 @@ public class FancyTerminal extends Terminal{
 
     @Override
     public String toString(){
-        if(this.getFriends() == null){
+        if(this.getFriends().isEmpty()){
             return("FANCY"+"|"+this.getTerminalID()+"|"+this.getTerminalClientID()+"|"+this.getTerminalMode().name()+"|"+Long.toString(Math.round(this.getTerminalPayments()))
             +"|"+Long.toString(Math.round(this.getTerminalDebts())));
         }
         else{
             return("FANCY"+"|"+this.getTerminalID()+"|"+this.getTerminalClientID()+"|"+this.getTerminalMode().name()+"|"+Long.toString(Math.round(this.getTerminalPayments()))
-            +"|"+Long.toString(Math.round(this.getTerminalDebts()))+"|"+this.getFriends()).toString();
+            +"|"+Long.toString(Math.round(this.getTerminalDebts()))+"|"+
+            this.getFriends().toString().substring(1, getFriends().toString().length()-1).replace(" ", "")).toString();
         }
     }
 }

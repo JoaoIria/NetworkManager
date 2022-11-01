@@ -1,0 +1,15 @@
+*** testsBoth/A-18-02-M-ok.out	2022-10-30 22:57:56.302603000 +0000
+--- testsBoth/A-18-02-M-ok.outhyp	2022-11-01 02:20:29.183561227 +0000
+***************
+*** 56,61 ****
+--- 56,65 ----
+  Escolha uma opção: 1
+  Identificador do cliente: cli001
+  CLIENT|cli001|Manuel Pinheiro|103443|NORMAL|NO|4|0|0
++ []
++ []
++ []
++ []
+  GESTÃO DE CLIENTES
+  1 - Visualizar cliente
+  2 - Visualizar todos os clientes

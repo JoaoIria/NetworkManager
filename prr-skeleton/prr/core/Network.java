@@ -1,5 +1,6 @@
 package prr.core;
 import java.io.Serializable;
+import java.security.PublicKey;
 import java.text.Normalizer.Form;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,9 +29,9 @@ public class Network implements Serializable {
   /** Serial number for serialization. */
   private static final long serialVersionUID = 202208091753L;
 
-  private List <Client> _clients = new ArrayList<>();
-  private List <Terminal> _terminals = new ArrayList<>();
-  private List <Communication> _comunications = new ArrayList<>();
+  private List <Client> _clients;
+  private List <Terminal> _terminals;
+  private List <Communication> _comunications;
 
   /**
    * Constructor.
@@ -82,6 +83,17 @@ public class Network implements Serializable {
       }  
     }throw new UnknownClientKeyException(key);
   }
+
+
+  public Client findClientById(String key) throws UnknownClientKeyException {
+    for(Client c :_clients){
+      if(c.getClientID().equals(key)){
+        return(c);
+      }  
+    } throw new UnknownClientKeyException(key);
+  }
+
+
 
  /**
    * Adds a notification to a specific terminal.
@@ -170,6 +182,9 @@ public class Network implements Serializable {
     if(idTerminal.length() != 6){
       throw new InvTerminalKeyException();
     }
+    if(!idTerminal.matches("[0-9]+")){  /* Verifica se cada caracter pertence ao grupo de inteiros de 0 a 9  */
+      throw new InvTerminalKeyException();
+    }
     
     for(Terminal t: _terminals){
       if(t.getTerminalID().equals(idTerminal)){
@@ -241,7 +256,7 @@ public class Network implements Serializable {
    * Show all unused terminals
    * 
    * @return the list of all terminals 
-   */ 
+   */
 
   public List<String> showUnusedTerminal(){
     List<String> list = new ArrayList<>();
@@ -260,17 +275,87 @@ public class Network implements Serializable {
    * @param s2 "Terminal ID from the one that will be added as a friend"
    */ 
 
-  public void addFriend(String s1, String s2){
+  public void addFriend(String s1, String s2) throws InvTerminalKeyException,UnkTerminalIdException{
 
+    if(s2.length() != 6){
+      throw new InvTerminalKeyException();
+    }
+    if(!s2.matches("[0-9]+")){ 
+      throw new InvTerminalKeyException();
+    }
     for(Terminal t: _terminals){
       if (t.getTerminalID().equals(s1)){
-          if(!t.getFriends().contains(s2)){
-            t.getFriends().add(s2);
+        if(!t.getFriends().contains(s2)){
+          t.getFriends().add(s2);
+          return;
         }
+        else{
+          return;
+        }
+        
       }
     }
+    throw new UnkTerminalIdException();
   }
 
+  public double getNetworkDebts(){
+    
+    double debts = 0;
+
+    for(Terminal t: _terminals){
+      debts += t.getTerminalDebts();
+    }
+
+    return debts;
+  }
+
+
+  public double getNetworkPayments(){
+    
+    double payments = 0;
+
+    for(Terminal t: _terminals){
+      payments += t.getTerminalPayments();
+    }
+
+    return payments;
+  }
+
+  public void activateClientNotifications(String ClientID) throws UnidentifiedClientKeyException{
+    for(Client c: _clients){
+      if(c.getClientID().equals(ClientID)){
+        c.activateNotificationsReception();
+        return;
+      }
+    }throw new UnidentifiedClientKeyException();
+  }
+
+  public void desactivateClientNotifications(String ClientID) throws UnidentifiedClientKeyException{
+    for(Client c: _clients){
+      if(c.getClientID().equals(ClientID)){
+        c.desactivateNotificationsReception();
+        return;
+      }
+    }throw new UnidentifiedClientKeyException();
+  }
+
+
+  public boolean existsTerminal (String TerminalID){
+    for(Terminal t: _terminals){
+      if(t.getTerminalID().equals(TerminalID)){
+        return true;
+      }
+    }return false;
+  }
+
+
+  public double getClientPayments(String ID) throws UnknownClientKeyException{
+    return findClientById(ID).getPayments();
+  }
+
+  public double getClientDebts(String ID) throws UnknownClientKeyException{
+    return findClientById(ID).getDebts();
+  }
 
    /**  -------------------------------------------------------- **
    *                        NOT DONE YET 
@@ -290,7 +375,7 @@ public class Network implements Serializable {
    * @throws IOException if there is an IO erro while processing the text file
    */
 
-  void importFile(String filename) throws UnrecognizedEntryException, IOException /* FIXME maybe other exceptions */  {
+  void importFile(String filename) throws UnrecognizedEntryException, IOException {
     Parser parser = new Parser(this);
     try{
       parser.parseFile(filename);

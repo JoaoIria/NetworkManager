@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import prr.core.exception.InvTerminalKeyException;
+import prr.core.exception.UnkTerminalIdException;
 
 
 /**
@@ -14,6 +16,7 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
   /** Serial number for serialization. */
   private static final long serialVersionUID = 202208091753L;
   
+  private Network _network;
 
   private String _clientId;
   private String _id;
@@ -21,8 +24,8 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
   private double _payments;
   private TerminalMode _mode;
   private List <String> _friends;
-  private List <Notification> _notifications = new ArrayList<>();
-  private List <Communication> _comunications = new ArrayList<>();
+  private List <Notification> _notifications;
+  private List <Communication> _comunications;
 
 
    /**
@@ -35,6 +38,9 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
     _payments = 0;
     _clientId = clientId;
     _mode = TerminalMode.IDLE;
+    _friends = new ArrayList<>();
+    _notifications = new ArrayList<>();
+    _comunications = new ArrayList<>();
   }
 
   /**
@@ -210,5 +216,20 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
       return false;
     }
     return true;
+  }
+
+  public void addFriend(String TerminalFriend) throws InvTerminalKeyException{
+
+    if(TerminalFriend.length() != 6){
+      throw new InvTerminalKeyException();
+    }
+    if(!TerminalFriend.matches("[0-9]+")){
+      throw new InvTerminalKeyException();
+    };
+    
+    /* COMO VERIFICAR SE O TERMIANL ADICIONADO EXISTE??? */
+    /* COMO FAZER PARA ELE N SE ADICIONAR A ELE MESMO???? */
+
+    _friends.add(TerminalFriend);
   }
 }

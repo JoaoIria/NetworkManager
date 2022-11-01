@@ -13,10 +13,10 @@ public class Client implements Serializable, Comparable<Client>{
     private int _taxNumber;
     private ClientLevel _level;
     private boolean _receiveNotifications;
-    private List <Terminal> _terminalList = new ArrayList<>();
+    private List <Terminal> _terminalList;
     private int _terminals;
-    private int _payments;
-    private int _debts;
+    private double _payments;
+    private double _debts;
 
 
 
@@ -33,6 +33,7 @@ public class Client implements Serializable, Comparable<Client>{
         _terminals = 0;
         _payments = 0;
         _debts = 0;
+        _terminalList = new ArrayList<>();
     }
     
 
@@ -46,6 +47,13 @@ public class Client implements Serializable, Comparable<Client>{
         return _name;
     }
 
+    public double getPayments(){
+        return _payments;
+    }
+
+    public double getDebts(){
+        return _debts;
+    }
 
    /**
    * Gets the List of Terminals associated to the Client
@@ -58,6 +66,12 @@ public class Client implements Serializable, Comparable<Client>{
     }
 
 
+    public boolean getClientNotificationStatus(){
+        return _receiveNotifications;
+    }
+
+
+    
    /**
    * Gets the Client's Id
    *
@@ -92,6 +106,15 @@ public class Client implements Serializable, Comparable<Client>{
     }
 
 
+    public void activateNotificationsReception(){
+        _receiveNotifications = true;
+    }
+
+    public void desactivateNotificationsReception(){
+        _receiveNotifications = false;
+    }
+
+
    /**
    * Transforms a Client into a String
    *
@@ -109,7 +132,7 @@ public class Client implements Serializable, Comparable<Client>{
         }
         return("CLIENT"+"|"+this._key+"|"+this._name+"|"+Integer.valueOf(this._taxNumber)+"|"+
         this._level.name()+"|"+notificationState+"|"+Integer.valueOf(this._terminals)+"|"+
-      +Integer.valueOf(this._payments)+"|"+Integer.valueOf(this._debts));
+      +Math.round(this._payments)+"|"+Math.round(this._debts));
     }
 
 
@@ -123,6 +146,6 @@ public class Client implements Serializable, Comparable<Client>{
 
     @Override
     public int compareTo(Client c){
-        return String.valueOf(this._key).compareTo(String.valueOf(c._key));
+        return String.valueOf(this._key.toLowerCase()).compareTo(String.valueOf(c._key.toLowerCase()));
     }
 }

@@ -3,6 +3,10 @@ package prr.app.terminal;
 import prr.core.Network;
 import prr.core.Terminal;
 import pt.tecnico.uilib.menus.CommandException;
+import prr.app.exception.InvalidTerminalKeyException;
+import prr.app.exception.UnknownTerminalKeyException;
+import prr.core.exception.InvTerminalKeyException;
+import prr.core.exception.UnkTerminalIdException;
 //FIXME add more imports if needed
 
 /**
@@ -13,10 +17,18 @@ class DoAddFriend extends TerminalCommand {
   DoAddFriend(Network context, Terminal terminal) {
     super(Label.ADD_FRIEND, context, terminal);
     //FIXME add command fields
+    addStringField("terminalKey", Message.terminalKey());
   }
   
   @Override
   protected final void execute() throws CommandException {
+    String terminalKey = stringField("terminalKey");
+    
+    try{
+      _receiver.addFriend(terminalKey);
+    }catch(InvTerminalKeyException itke){
+      throw new InvalidTerminalKeyException(terminalKey);
+    }
     //FIXME implement command
   }
 }
