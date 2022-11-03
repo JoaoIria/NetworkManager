@@ -16,9 +16,8 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
 
   /** Serial number for serialization. */
   private static final long serialVersionUID = 202208091753L;
-  
-  private Network _network;
 
+  private Client _client;
   private String _clientId;
   private String _id;
   private double _debt;
@@ -67,6 +66,7 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
   public double getTerminalPayments(){
     return _payments;
   }
+
 
   /**
    * Gets the Terminal's debt
@@ -228,9 +228,10 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
   }
 
   public List<Communication> commsMadeByClient(){
+    System.out.println(_comunications.toString());
     List<Communication> coms = new ArrayList<>();
     for(Communication c: _comunications){
-      if(c.returnIDChegada().equals(_clientId)){
+      if(c.returnIDPartida().equals(this._id)){
         coms.add(c);
       }
     }
@@ -238,10 +239,10 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
   }
 
 
-  public List<Communication> commsReceivedByClient(){
+  public List<Communication> commsReceivedByClient(String ClientID){
     List<Communication> coms = new ArrayList<>();
     for(Communication c: _comunications){
-      if(c.returnIDPartida().equals(_clientId)){
+      if(c.returnIDChegada().equals(ClientID)){
         coms.add(c);
       }
     }
@@ -267,11 +268,49 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
     return comms;
   }
 
-  public void makeSMS(Terminal t, String text) throws UnidentifiedClientKeyException{
-    Communication comm = new TextCommunication(t.getTerminalID(),this.getTerminalID(),text);
-    _comunications.add(comm);
+
+
+  public Communication makeSMS(Client c,Terminal toTerminal, String text) throws UnidentifiedClientKeyException{
+    Communication comm = new TextCommunication(toTerminal.getTerminalID(),this.getTerminalID(),text, c);
+    this._comunications.add(comm);
+    toTerminal._comunications.add(comm);
     _debt += comm.getCost();
-    _network.findClientById(_clientId).setDebtClient(comm.getCost());
+    return comm;
   }
+
+  public Communication makeVoiceCall(Client c, Terminal toTerminal, int duration) throws UnidentifiedClientKeyException{
+    Communication comm = new VoiceCommunication(toTerminal.getTerminalID(),this.getTerminalID(),duration, c);
+    this._comunications.add(comm);
+    toTerminal._comunications.add(comm);
+    _debt += comm.getCost();
+    return comm;
+  }
+
+  public Communication makeVideoCall(Client c, Terminal toTerminal, int duration) throws UnidentifiedClientKeyException{
+    Communication comm = new VideoCommunication(toTerminal.getTerminalID(),this.getTerminalID(),duration, c);
+    _comunications.add(comm);
+    toTerminal._comunications.add(comm);
+    _debt += comm.getCost();
+    return comm;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

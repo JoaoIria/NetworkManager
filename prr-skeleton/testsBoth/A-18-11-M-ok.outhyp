@@ -27,6 +27,9 @@ OPERAÇÕES DO TERMINAL
 11 - Mostrar comunicação em curso
 0 - Sair
 Escolha uma opção: 8
+Número do terminal: 969003
+Mensagem de texto a enviar: werty
+O terminal de destino ('969003') está desligado.
 OPERAÇÕES DO TERMINAL
 1 - Ligar
 2 - Colocar no silêncio
@@ -39,22 +42,6 @@ OPERAÇÕES DO TERMINAL
 9 - Iniciar comunicação
 11 - Mostrar comunicação em curso
 0 - Sair
-Escolha uma opção: 969003
-Opção inválida!
-OPERAÇÕES DO TERMINAL
-1 - Ligar
-2 - Colocar no silêncio
-3 - Desligar
-4 - Adicionar amigo
-5 - Retirar amigo
-6 - Pagamento
-7 - Consultar saldo
-8 - Enviar comunicação de texto
-9 - Iniciar comunicação
-11 - Mostrar comunicação em curso
-0 - Sair
-Escolha uma opção: werty
-Número inválido!
 Escolha uma opção: 0
 GESTÃO DE TERMINAIS
 1 - Mostrar todos os terminais

@@ -76,33 +76,8 @@ OPERAÇÕES DO TERMINAL
 11 - Mostrar comunicação em curso
 0 - Sair
 Escolha uma opção: 8
-OPERAÇÕES DO TERMINAL
-1 - Ligar
-2 - Colocar no silêncio
-3 - Desligar
-4 - Adicionar amigo
-5 - Retirar amigo
-6 - Pagamento
-7 - Consultar saldo
-8 - Enviar comunicação de texto
-9 - Iniciar comunicação
-11 - Mostrar comunicação em curso
-0 - Sair
-Escolha uma opção: 969001
-Opção inválida!
-OPERAÇÕES DO TERMINAL
-1 - Ligar
-2 - Colocar no silêncio
-3 - Desligar
-4 - Adicionar amigo
-5 - Retirar amigo
-6 - Pagamento
-7 - Consultar saldo
-8 - Enviar comunicação de texto
-9 - Iniciar comunicação
-11 - Mostrar comunicação em curso
-0 - Sair
-Escolha uma opção: 1
+Número do terminal: 969001
+Mensagem de texto a enviar: 1
 OPERAÇÕES DO TERMINAL
 1 - Ligar
 2 - Colocar no silêncio
@@ -116,7 +91,7 @@ OPERAÇÕES DO TERMINAL
 11 - Mostrar comunicação em curso
 0 - Sair
 Escolha uma opção: 7
-Valores para o terminal '969007':0 (pagamentos),  0 (dívidas).
+Valores para o terminal '969007':0 (pagamentos),  10 (dívidas).
 OPERAÇÕES DO TERMINAL
 1 - Ligar
 2 - Colocar no silêncio

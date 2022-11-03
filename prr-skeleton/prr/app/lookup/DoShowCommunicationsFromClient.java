@@ -1,5 +1,8 @@
 package prr.app.lookup;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import prr.core.Network;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
@@ -26,6 +29,7 @@ class DoShowCommunicationsFromClient extends Command<Network> {
         _display.addLine(c);
       }
       _display.display();
+      return;
     }catch(UnidentifiedClientKeyException ucke){
       throw new UnknownClientKeyException(key);
     }

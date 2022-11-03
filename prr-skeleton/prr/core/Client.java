@@ -75,7 +75,7 @@ public class Client implements Serializable, Comparable<Client>{
    * @return the List of Terminals associated to the Client
    */ 
 
-    public List <Terminal> getTeminalList(){
+    public List <Terminal> getTerminalList(){
         return _terminalList;
     }
 

@@ -7,13 +7,14 @@ public abstract class Communication {
     private boolean _isPaid;
     private double _cost;
     private boolean _isOngoing;
-    private double _units;
+    private int _duration;
     private String _status; /*ONGOING OU FINISHED */
 
 
     public Communication(String idChegada,String idPartida){
         _idChegada = idChegada;
         _idPartida = idPartida;
+        _cost = 0;
         _id += 1;
     }
     
@@ -25,8 +26,8 @@ public abstract class Communication {
         return _status;
     }
 
-    public double getUnits(){
-        return _units;
+    public double getDuration(){
+        return _duration;
     }
 
     public double getCost(){
@@ -38,6 +39,14 @@ public abstract class Communication {
     }
     public boolean isOngoing(){
         return _isOngoing;
+    }
+
+    public void setCost(double cost){
+        _cost = cost;
+    }
+
+    public void setStatus(String Status){
+        _status = Status;
     }
 
     /**
@@ -62,5 +71,9 @@ public abstract class Communication {
         String.valueOf(_units)+"|"+String.valueOf(_price)+"|"+_status);
     }*/
 
+
+  public Communication getCommunication() {
+    return this;
+  }
 
 }

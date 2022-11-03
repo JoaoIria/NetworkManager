@@ -2,10 +2,8 @@ package prr.app.terminal;
 
 import prr.core.exception.UnidentifiedClientKeyException;
 import prr.app.exception.UnknownTerminalKeyException;
-import prr.core.exception.UnkCommunicationKeyException;
 import prr.core.exception.UnkTerminalIdException;
 import prr.app.exception.UnknownClientKeyException;
-import prr.app.exception.UnknownCommunicationKeyException;
 import prr.core.Communication;
 import prr.core.Network;
 import prr.core.Terminal;
@@ -50,8 +48,6 @@ class DoPerformPayment extends TerminalCommand {
       }
     }catch(UnidentifiedClientKeyException ucke){
       throw new UnknownClientKeyException(_receiver.getTerminalClientID());
-    }catch(UnkCommunicationKeyException unke){
-      throw new UnknownCommunicationKeyException(commKey);
     }catch(UnkTerminalIdException utie){
       throw new UnknownTerminalKeyException(comm.returnIDPartida());
     }

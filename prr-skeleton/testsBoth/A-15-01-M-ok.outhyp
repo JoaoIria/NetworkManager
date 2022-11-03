@@ -27,34 +27,8 @@ OPERAÇÕES DO TERMINAL
 11 - Mostrar comunicação em curso
 0 - Sair
 Escolha uma opção: 8
-OPERAÇÕES DO TERMINAL
-1 - Ligar
-2 - Colocar no silêncio
-3 - Desligar
-4 - Adicionar amigo
-5 - Retirar amigo
-6 - Pagamento
-7 - Consultar saldo
-8 - Enviar comunicação de texto
-9 - Iniciar comunicação
-11 - Mostrar comunicação em curso
-0 - Sair
-Escolha uma opção: 969006
-Opção inválida!
-OPERAÇÕES DO TERMINAL
-1 - Ligar
-2 - Colocar no silêncio
-3 - Desligar
-4 - Adicionar amigo
-5 - Retirar amigo
-6 - Pagamento
-7 - Consultar saldo
-8 - Enviar comunicação de texto
-9 - Iniciar comunicação
-11 - Mostrar comunicação em curso
-0 - Sair
-Escolha uma opção: 0123456789
-Opção inválida!
+Número do terminal: 969006
+Mensagem de texto a enviar: 0123456789
 OPERAÇÕES DO TERMINAL
 1 - Ligar
 2 - Colocar no silêncio
@@ -93,6 +67,7 @@ CONSULTAS
 7 - Mostrar terminais com saldo positivo
 0 - Sair
 Escolha uma opção: 1
+TEXT|1|969001|969006|10|10|FINISHED
 CONSULTAS
 1 - Mostrar todas as comunicações
 2 - Mostrar comunicações feitas por um cliente
@@ -132,6 +107,8 @@ OPERAÇÕES DO TERMINAL
 11 - Mostrar comunicação em curso
 0 - Sair
 Escolha uma opção: 8
+Número do terminal: 969001
+Mensagem de texto a enviar: 0123456789012345678901234567890123456789012345678
 OPERAÇÕES DO TERMINAL
 1 - Ligar
 2 - Colocar no silêncio
@@ -144,22 +121,6 @@ OPERAÇÕES DO TERMINAL
 9 - Iniciar comunicação
 11 - Mostrar comunicação em curso
 0 - Sair
-Escolha uma opção: 969001
-Opção inválida!
-OPERAÇÕES DO TERMINAL
-1 - Ligar
-2 - Colocar no silêncio
-3 - Desligar
-4 - Adicionar amigo
-5 - Retirar amigo
-6 - Pagamento
-7 - Consultar saldo
-8 - Enviar comunicação de texto
-9 - Iniciar comunicação
-11 - Mostrar comunicação em curso
-0 - Sair
-Escolha uma opção: 0123456789012345678901234567890123456789012345678
-Número inválido!
 Escolha uma opção: 0
 GESTÃO DE TERMINAIS
 1 - Mostrar todos os terminais
@@ -186,6 +147,8 @@ CONSULTAS
 7 - Mostrar terminais com saldo positivo
 0 - Sair
 Escolha uma opção: 1
+TEXT|1|969001|969006|10|10|FINISHED
+TEXT|1|969011|969001|49|10|FINISHED
 CONSULTAS
 1 - Mostrar todas as comunicações
 2 - Mostrar comunicações feitas por um cliente
