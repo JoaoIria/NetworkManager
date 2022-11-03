@@ -130,6 +130,8 @@ OPERAÇÕES DO TERMINAL
 5 - Retirar amigo
 6 - Pagamento
 7 - Consultar saldo
+8 - Enviar comunicação de texto
+9 - Iniciar comunicação
 11 - Mostrar comunicação em curso
 0 - Sair
 Escolha uma opção: 0
@@ -143,7 +145,7 @@ BASIC|969001|cli001|IDLE|0|0
 BASIC|969003|cli001|OFF|0|0
 BASIC|969006|cli002|IDLE|0|0
 BASIC|969007|cli003|IDLE|0|0
-BASIC|969008|cli003|OFF|0|0
+BASIC|969008|cli003|IDLE|0|0
 FANCY|969011|cli001|IDLE|0|0
 FANCY|969013|cli001|SILENCE|0|0
 FANCY|969014|cli002|IDLE|0|0

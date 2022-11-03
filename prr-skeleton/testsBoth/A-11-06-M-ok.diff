@@ -1,5 +1,5 @@
 *** testsBoth/A-11-06-M-ok.out	2022-10-30 22:57:52.141358000 +0000
---- testsBoth/A-11-06-M-ok.outhyp	2022-11-01 02:20:25.023614420 +0000
+--- testsBoth/A-11-06-M-ok.outhyp	2022-11-03 03:11:42.744209881 +0000
 ***************
 *** 27,34 ****
   11 - Mostrar comunicação em curso
@@ -98,8 +98,15 @@
   11 - Mostrar comunicação em curso
   0 - Sair
   Escolha uma opção: 7
-- Valores para o terminal '969007':0 (pagamentos),  10 (dívidas).
+! Valores para o terminal '969007':0 (pagamentos),  10 (dívidas).
   OPERAÇÕES DO TERMINAL
   1 - Ligar
   2 - Colocar no silêncio
---- 116,121 ----
+--- 116,122 ----
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 7
+! Valores para o terminal '969007':0 (pagamentos),  0 (dívidas).
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio

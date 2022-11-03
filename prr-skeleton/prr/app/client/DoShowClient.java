@@ -2,6 +2,7 @@ package prr.app.client;
 
 import prr.core.Network;
 
+import prr.core.exception.UnidentifiedClientKeyException;
 import prr.app.exception.UnknownClientKeyException;
 import prr.core.exception.NoNotificationsKeyException;
 
@@ -23,10 +24,14 @@ class DoShowClient extends Command<Network> {
 
     String key = stringField("ClientID");
 
+    try{
     _display.addLine(_receiver.showClientById(key));
     for (String notification : _receiver.getNotifications(key)){
       _display.addLine(notification);
-      }
+    }
     _display.display();
+    }catch(UnidentifiedClientKeyException ucke){
+    throw new UnknownClientKeyException(key);
+    }
   }
 }

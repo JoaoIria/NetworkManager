@@ -104,20 +104,7 @@ OPERAÇÕES DO TERMINAL
 11 - Mostrar comunicação em curso
 0 - Sair
 Escolha uma opção: 5
-OPERAÇÕES DO TERMINAL
-1 - Ligar
-2 - Colocar no silêncio
-3 - Desligar
-4 - Adicionar amigo
-5 - Retirar amigo
-6 - Pagamento
-7 - Consultar saldo
-8 - Enviar comunicação de texto
-9 - Iniciar comunicação
-11 - Mostrar comunicação em curso
-0 - Sair
-Escolha uma opção: 969007
-Opção inválida!
+Número do terminal: 969007
 OPERAÇÕES DO TERMINAL
 1 - Ligar
 2 - Colocar no silêncio
@@ -131,20 +118,7 @@ OPERAÇÕES DO TERMINAL
 11 - Mostrar comunicação em curso
 0 - Sair
 Escolha uma opção: 5
-OPERAÇÕES DO TERMINAL
-1 - Ligar
-2 - Colocar no silêncio
-3 - Desligar
-4 - Adicionar amigo
-5 - Retirar amigo
-6 - Pagamento
-7 - Consultar saldo
-8 - Enviar comunicação de texto
-9 - Iniciar comunicação
-11 - Mostrar comunicação em curso
-0 - Sair
-Escolha uma opção: 969014
-Opção inválida!
+Número do terminal: 969014
 OPERAÇÕES DO TERMINAL
 1 - Ligar
 2 - Colocar no silêncio
@@ -158,20 +132,7 @@ OPERAÇÕES DO TERMINAL
 11 - Mostrar comunicação em curso
 0 - Sair
 Escolha uma opção: 5
-OPERAÇÕES DO TERMINAL
-1 - Ligar
-2 - Colocar no silêncio
-3 - Desligar
-4 - Adicionar amigo
-5 - Retirar amigo
-6 - Pagamento
-7 - Consultar saldo
-8 - Enviar comunicação de texto
-9 - Iniciar comunicação
-11 - Mostrar comunicação em curso
-0 - Sair
-Escolha uma opção: 969001
-Opção inválida!
+Número do terminal: 969001
 OPERAÇÕES DO TERMINAL
 1 - Ligar
 2 - Colocar no silêncio
@@ -196,7 +157,7 @@ BASIC|969003|cli001|OFF|0|0
 BASIC|969006|cli002|IDLE|0|0|969001
 BASIC|969007|cli003|IDLE|0|0
 BASIC|969008|cli003|SILENCE|0|0
-FANCY|969011|cli001|IDLE|0|0|969014,969001,969008,969007
+FANCY|969011|cli001|IDLE|0|0|969008
 FANCY|969013|cli001|SILENCE|0|0
 FANCY|969014|cli002|IDLE|0|0
 FANCY|969015|cli003|IDLE|0|0
@@ -220,20 +181,7 @@ OPERAÇÕES DO TERMINAL
 11 - Mostrar comunicação em curso
 0 - Sair
 Escolha uma opção: 5
-OPERAÇÕES DO TERMINAL
-1 - Ligar
-2 - Colocar no silêncio
-3 - Desligar
-4 - Adicionar amigo
-5 - Retirar amigo
-6 - Pagamento
-7 - Consultar saldo
-8 - Enviar comunicação de texto
-9 - Iniciar comunicação
-11 - Mostrar comunicação em curso
-0 - Sair
-Escolha uma opção: 969008
-Opção inválida!
+Número do terminal: 969008
 OPERAÇÕES DO TERMINAL
 1 - Ligar
 2 - Colocar no silêncio
@@ -258,7 +206,7 @@ BASIC|969003|cli001|OFF|0|0
 BASIC|969006|cli002|IDLE|0|0|969001
 BASIC|969007|cli003|IDLE|0|0
 BASIC|969008|cli003|SILENCE|0|0
-FANCY|969011|cli001|IDLE|0|0|969014,969001,969008,969007
+FANCY|969011|cli001|IDLE|0|0
 FANCY|969013|cli001|SILENCE|0|0
 FANCY|969014|cli002|IDLE|0|0
 FANCY|969015|cli003|IDLE|0|0

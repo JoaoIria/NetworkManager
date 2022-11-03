@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.List;
 import java.io.IOException;
 
-import prr.app.exception.UnknownClientKeyException;
 import prr.core.exception.SameClientKeyException;
 import prr.core.exception.NoNotificationsKeyException;
 import prr.core.exception.UnrecognizedEntryException;
@@ -17,6 +16,8 @@ import prr.core.exception.SameTerminalKeyException;
 import prr.core.exception.InvTerminalKeyException;
 import prr.core.exception.TerminalAlreadyOffException;
 import prr.core.exception.UnkTerminalIdException;
+import prr.core.exception.UnknownIdentifierException;
+import prr.core.exception.UnkCommunicationKeyException;
 
 
 
@@ -65,6 +66,16 @@ public class Network implements Serializable {
     _clients.add(_clientTemp);
   }
 
+
+  public List<Communication> getAllCommunications(){
+    List<Communication> comms = new ArrayList<>();
+    for(Communication c: _comunications){
+      comms.add(c);
+    }
+    return comms;
+  }
+
+
  /**
    * Shows a client by his id.
    * 
@@ -75,22 +86,22 @@ public class Network implements Serializable {
    * @return Client in String format
    */ 
 
-  public String showClientById(String key) throws UnknownClientKeyException {
+  public String showClientById(String key) throws UnidentifiedClientKeyException {
   
     for(Client c :_clients){
       if(c.getClientID().equals(key)){
         return(c.toString());
       }  
-    }throw new UnknownClientKeyException(key);
+    }throw new UnidentifiedClientKeyException();
   }
 
 
-  public Client findClientById(String key) throws UnknownClientKeyException {
+  public Client findClientById(String key) throws UnidentifiedClientKeyException{
     for(Client c :_clients){
       if(c.getClientID().equals(key)){
         return(c);
       }  
-    } throw new UnknownClientKeyException(key);
+    } throw new UnidentifiedClientKeyException();
   }
 
 
@@ -233,8 +244,17 @@ public class Network implements Serializable {
   }
 
 
-  public void TurnOffTerminal(String idTerminal){
+  public void TurnOffTerminal(String idTerminal) throws UnkTerminalIdException{
+    showTerminal(idTerminal).turnOff();
   } 
+
+  public void setTerminalIdle(String idTerminal) throws UnkTerminalIdException{
+    showTerminal(idTerminal).setOnIdle();
+  }
+
+  public void setTerminalSilence(String idTerminal) throws UnkTerminalIdException{
+    showTerminal(idTerminal).setOnSilent();
+  }
 
 
    /**
@@ -285,18 +305,47 @@ public class Network implements Serializable {
     }
     for(Terminal t: _terminals){
       if (t.getTerminalID().equals(s1)){
-        if(!t.getFriends().contains(s2)){
-          t.getFriends().add(s2);
-          return;
+        if(_terminals.contains(showTerminal(s2))){
+          if(!t.getFriends().contains(s2)){
+            t.getFriends().add(s2);
+            return;
+          }
+          else{
+            return;
+          }
+        }else{
+          throw new UnkTerminalIdException();
         }
-        else{
-          return;
-        }
-        
       }
-    }
-    throw new UnkTerminalIdException();
+    }throw new UnkTerminalIdException();
   }
+
+
+  public void removeFriend(String s1, String s2) throws InvTerminalKeyException,UnkTerminalIdException{
+
+    if(s2.length() != 6){
+      throw new InvTerminalKeyException();
+    }
+    if(!s2.matches("[0-9]+")){ 
+      throw new InvTerminalKeyException();
+    }
+    for(Terminal t: _terminals){
+      if (t.getTerminalID().equals(s1)){
+        if(_terminals.contains(showTerminal(s2))){
+          if(t.getFriends().contains(s2)){
+            t.getFriends().remove(s2);
+            return;
+          }
+          else{
+            return;
+          }
+        }else{
+          throw new UnkTerminalIdException();
+        }
+      }
+    }throw new UnkTerminalIdException();
+  }
+
 
   public double getNetworkDebts(){
     
@@ -304,7 +353,7 @@ public class Network implements Serializable {
 
     for(Terminal t: _terminals){
       debts += t.getTerminalDebts();
-    }
+    } 
 
     return debts;
   }
@@ -348,24 +397,120 @@ public class Network implements Serializable {
     }return false;
   }
 
+  
+  public List<String> showAllCommunications(){
+    List <String> communications = new ArrayList<>();
+    for(Communication c: _comunications){
+      communications.add(c.toString());
+    }
+    return communications;
+  }
 
-  public double getClientPayments(String ID) throws UnknownClientKeyException{
+  public List<String> showClientMadeComunications(String clientId) throws UnidentifiedClientKeyException,UnidentifiedClientKeyException{
+    List <String> communications = new ArrayList<>();
+    for(Terminal t: findTerminalsListByCliendId(clientId)){
+      for(Communication c: t.commsMadeByClient()){
+        communications.add(c.toString());
+      }
+    }
+    return communications;
+  }
+
+  public List<String> showClientReceivedComunications(String clientId) throws UnidentifiedClientKeyException,UnidentifiedClientKeyException{
+    List <String> communications = new ArrayList<>();
+    for(Terminal t: findTerminalsListByCliendId(clientId)){
+      for(Communication c: t.commsReceivedByClient()){
+        communications.add(c.toString());
+      }
+    }
+    return communications;
+  }
+
+  public List<String> showClientsWithDebts(){
+    List <String> clientsWithDebts = new ArrayList<>();
+    for(Client c : _clients){
+      if (c.getDebts() > 0){
+        clientsWithDebts.add(c.toString());
+      }
+    }
+    Collections.sort(clientsWithDebts);
+    return clientsWithDebts;
+  }
+
+  public List<String> showClientsWithoutDebts(){
+    List <String> clientsNoDebts = new ArrayList<>();
+    for(Client c : _clients){
+      if (c.getDebts() == 0){
+        clientsNoDebts.add(c.toString());
+      }
+    }
+    Collections.sort(clientsNoDebts);
+    return clientsNoDebts;
+  }
+
+  public List <String> showTerminalsWithPositiveBalance(){
+    List <String> terminals = new ArrayList<>();
+    for(Terminal t: _terminals){
+      if(t.getTerminalPayments() - t.getTerminalDebts() > 0){
+        terminals.add(t.toString());
+      }
+    }
+    Collections.sort(terminals);
+    return terminals;
+  }
+
+
+
+
+  public List<Terminal> findTerminalsListByCliendId(String clientID)throws UnidentifiedClientKeyException{
+    return findClientById(clientID).getTeminalList();
+  }
+  
+
+
+
+  public double getClientPayments(String ID) throws UnidentifiedClientKeyException{
     return findClientById(ID).getPayments();
   }
 
-  public double getClientDebts(String ID) throws UnknownClientKeyException{
+
+
+  public double getClientDebts(String ID) throws UnidentifiedClientKeyException{
     return findClientById(ID).getDebts();
   }
 
-   /**  -------------------------------------------------------- **
-   *                        NOT DONE YET 
-   * ------------------------------------------------------------*/ 
 
-  public void sendTextCommunication(Terminal t, String key, String msg){
+
+  public void sendTextCommunication(Terminal t,String key, String msg) throws UnkTerminalIdException, UnidentifiedClientKeyException{
+    if(t.getTerminalMode().name().equals("IDLE") || t.getTerminalMode().name().equals("SILENCE")){
+      t.makeSMS(showTerminal(key), msg);
+    }
   }
 
+
+
+  public Communication findCommById(int id) throws UnkCommunicationKeyException{
+    for(Communication c: _comunications){
+      if(Integer.valueOf(c.getIDComms()) == id){
+        return c;
+      }
+    }throw new UnkCommunicationKeyException();
+  }
+
+
+
+  public void MakePayment(int id) throws UnkCommunicationKeyException, UnidentifiedClientKeyException, UnkTerminalIdException{
+    for(Communication c: _comunications){
+      if(c.getIDComms() == id){
+        showTerminal(c.returnIDPartida()).setPaymentTerminal(c.getCost());
+        findClientById(showTerminal(c.returnIDPartida()).getTerminalClientID()).setPaymentClient(c.getCost());
+        return;
+      }
+    }
+    throw new UnkCommunicationKeyException();
+  }
   
-  
+
   /**
    * Read text input file and create corresponding domain entities.
    * 

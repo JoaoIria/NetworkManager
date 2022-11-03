@@ -1,10 +1,10 @@
 package prr.app.lookup;
 
 import prr.core.Network;
+import java.util.List;
+import java.util.ArrayList;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME more imports if needed
-
 /**
  * Show clients with positive balance.
  */
@@ -16,6 +16,10 @@ class DoShowClientsWithoutDebts extends Command<Network> {
 
   @Override
   protected final void execute() throws CommandException {
-    //FIXME implement command
+    List <String> clientsNoDebts = new ArrayList<>(_receiver.showClientsWithoutDebts());
+    for (String c : clientsNoDebts){
+      _display.addLine(c);
+    }
+    _display.display();
   }
 }

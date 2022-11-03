@@ -1,5 +1,7 @@
 package prr.app.lookup;
 
+import java.util.List;
+import java.util.ArrayList;
 import prr.core.Network;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
@@ -16,6 +18,11 @@ class DoShowAllCommunications extends Command<Network> {
 
   @Override
   protected final void execute() throws CommandException {
-    //FIXME implement command
-  }
+    List <String> coms = new ArrayList<>(_receiver.showAllCommunications());
+
+    for (String c : coms){
+      _display.addLine(c);
+    }
+    _display.display();
+  }  
 }

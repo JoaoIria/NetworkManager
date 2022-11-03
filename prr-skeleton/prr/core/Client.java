@@ -43,6 +43,10 @@ public class Client implements Serializable, Comparable<Client>{
    * @return the Name of the CLien
    */ 
 
+    public ClientLevel getClientLevel(){
+        return _level;
+    }
+
     public String getClientName(){
         return _name;
     }
@@ -54,6 +58,16 @@ public class Client implements Serializable, Comparable<Client>{
     public double getDebts(){
         return _debts;
     }
+
+    public void setPaymentClient(double payment){
+        _payments += payment;
+        _debts -= payment;
+    }
+
+    public void setDebtClient(double debt){
+        _debts += debt;
+    }
+
 
    /**
    * Gets the List of Terminals associated to the Client

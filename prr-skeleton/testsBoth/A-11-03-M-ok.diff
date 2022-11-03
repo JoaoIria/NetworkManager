@@ -1,5 +1,5 @@
 *** testsBoth/A-11-03-M-ok.out	2022-10-30 22:57:51.911710000 +0000
---- testsBoth/A-11-03-M-ok.outhyp	2022-11-01 02:20:24.771617643 +0000
+--- testsBoth/A-11-03-M-ok.outhyp	2022-11-03 03:11:42.480213111 +0000
 ***************
 *** 27,34 ****
   11 - Mostrar comunicação em curso
@@ -10,7 +10,7 @@
   OPERAÇÕES DO TERMINAL
   1 - Ligar
   2 - Colocar no silêncio
---- 27,59 ----
+--- 27,60 ----
   11 - Mostrar comunicação em curso
   0 - Sair
   Escolha uma opção: 8
@@ -41,6 +41,7 @@
 ! 11 - Mostrar comunicação em curso
 ! 0 - Sair
 ! Escolha uma opção: 1
+! O terminal já estava em silêncio.
   OPERAÇÕES DO TERMINAL
   1 - Ligar
   2 - Colocar no silêncio

@@ -7,8 +7,6 @@ import prr.app.exception.InvalidTerminalKeyException;
 import prr.app.exception.UnknownTerminalKeyException;
 import prr.core.exception.InvTerminalKeyException;
 import prr.core.exception.UnkTerminalIdException;
-//FIXME add more imports if needed
-
 /**
  * Add a friend.
  */
@@ -16,7 +14,6 @@ class DoAddFriend extends TerminalCommand {
 
   DoAddFriend(Network context, Terminal terminal) {
     super(Label.ADD_FRIEND, context, terminal);
-    //FIXME add command fields
     addStringField("terminalKey", Message.terminalKey());
   }
   
@@ -25,10 +22,17 @@ class DoAddFriend extends TerminalCommand {
     String terminalKey = stringField("terminalKey");
     
     try{
-      _receiver.addFriend(terminalKey);
+      if(_receiver.getTerminalID().equals(terminalKey)){
+        return;
+        /* throw new UnknownTerminalKeyException(terminalKey); QUE MSG É SUPOSTO APARECER QUANDO ADICIONA O MSM TERMINAL? */
+      }
+      else{
+        _network.addFriend(_receiver.getTerminalID(), terminalKey);
+      }
     }catch(InvTerminalKeyException itke){
       throw new InvalidTerminalKeyException(terminalKey);
+    }catch(UnkTerminalIdException utie){
+      throw new UnknownTerminalKeyException(terminalKey);
     }
-    //FIXME implement command
   }
 }

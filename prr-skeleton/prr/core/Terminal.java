@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import prr.core.exception.UnidentifiedClientKeyException;
 import prr.core.exception.InvTerminalKeyException;
 import prr.core.exception.UnkTerminalIdException;
 
@@ -66,7 +67,6 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
   public double getTerminalPayments(){
     return _payments;
   }
-
 
   /**
    * Gets the Terminal's debt
@@ -145,6 +145,15 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
   }
 
 
+  public void setOnIdle(){
+    _mode = TerminalMode.IDLE;
+  }
+  
+  public void setOnBusy(){
+    _mode = TerminalMode.BUSY;
+  }
+
+
   /**
    * Alters the Terminal Mode to SILENCE
    *
@@ -218,18 +227,51 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
     return true;
   }
 
-  public void addFriend(String TerminalFriend) throws InvTerminalKeyException{
-
-    if(TerminalFriend.length() != 6){
-      throw new InvTerminalKeyException();
+  public List<Communication> commsMadeByClient(){
+    List<Communication> coms = new ArrayList<>();
+    for(Communication c: _comunications){
+      if(c.returnIDChegada().equals(_clientId)){
+        coms.add(c);
+      }
     }
-    if(!TerminalFriend.matches("[0-9]+")){
-      throw new InvTerminalKeyException();
-    };
-    
-    /* COMO VERIFICAR SE O TERMIANL ADICIONADO EXISTE??? */
-    /* COMO FAZER PARA ELE N SE ADICIONAR A ELE MESMO???? */
-
-    _friends.add(TerminalFriend);
+    return coms;
   }
+
+
+  public List<Communication> commsReceivedByClient(){
+    List<Communication> coms = new ArrayList<>();
+    for(Communication c: _comunications){
+      if(c.returnIDPartida().equals(_clientId)){
+        coms.add(c);
+      }
+    }
+    return coms;
+  }
+
+  public void setPaymentTerminal(double payment){
+    _payments += payment;
+    _debt -= payment;
+  }
+
+  public void setDebtTerminal(double debt){
+    _debt += debt;
+  }
+
+  public List<String> getOngoingCommunications(){
+    List <String> comms = new ArrayList<>();
+    for(Communication c: _comunications){
+      if(c.isOngoing()){
+        comms.add(c.toString());
+      }
+    }
+    return comms;
+  }
+
+  public void makeSMS(Terminal t, String text) throws UnidentifiedClientKeyException{
+    Communication comm = new TextCommunication(t.getTerminalID(),this.getTerminalID(),text);
+    _comunications.add(comm);
+    _debt += comm.getCost();
+    _network.findClientById(_clientId).setDebtClient(comm.getCost());
+  }
+
 }

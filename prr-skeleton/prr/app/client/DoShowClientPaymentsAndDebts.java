@@ -2,6 +2,7 @@ package prr.app.client;
 
 import prr.core.Client;
 import prr.core.Network;
+import prr.core.exception.UnidentifiedClientKeyException;
 import prr.app.exception.UnknownClientKeyException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
@@ -21,8 +22,11 @@ class DoShowClientPaymentsAndDebts extends Command<Network> {
   protected final void execute() throws CommandException {
     String ClientID = stringField("ClientID"); 
     
+    try{
     _display.add(Message.clientPaymentsAndDebts(ClientID, Math.round(_receiver.getClientPayments(ClientID)), Math.round(_receiver.getClientDebts(ClientID))));
     _display.display();
-
+    }catch(UnidentifiedClientKeyException ucke){
+      throw new UnknownClientKeyException(ClientID);
+    }
   }
 }

@@ -1,9 +1,11 @@
 package prr.app.lookup;
 
+
+import java.util.List;
+import java.util.ArrayList;
 import prr.core.Network;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME add more imports if needed
 
 /**
  * Show terminals with positive balance.
@@ -16,6 +18,12 @@ class DoShowTerminalsWithPositiveBalance extends Command<Network> {
 
   @Override
   protected final void execute() throws CommandException {
-    //FIXME implement command
+    List <String> terminals = new ArrayList<>(_receiver.showTerminalsWithPositiveBalance());
+
+    for (String c : terminals){
+      _display.addLine(c);
+    }
+    _display.display();
   }
 }
+

@@ -6,7 +6,6 @@ import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import java.util.LinkedList;
 import prr.core.Terminal;
-//FIXME add more imports if needed
 import java.util.List;
 import java.util.ArrayList;
 /**

@@ -1,5 +1,7 @@
 package prr.app.terminal;
 
+import prr.app.exception.UnknownClientKeyException;
+import prr.core.exception.UnkTerminalIdException;
 import prr.core.Network;
 import prr.core.Terminal;
 import pt.tecnico.uilib.menus.CommandException;
@@ -16,6 +18,17 @@ class DoTurnOffTerminal extends TerminalCommand {
   
   @Override
   protected final void execute() throws CommandException {
-    //FIXME implement command
+    try{
+      if(_receiver.getTerminalMode().name().equals("OFF")){
+        _display.add(Message.alreadyOff());
+        _display.display();
+        return;
+      }
+      else{
+        _network.TurnOffTerminal(_receiver.getTerminalID());
+      }
+    }catch(UnkTerminalIdException utie){
+      throw new UnknownClientKeyException(_receiver.getTerminalID());
+    }
   }
 }
