@@ -441,11 +441,11 @@ public class Network implements Serializable {
         _waitingNotifications.removeAll(toRemove);
         showTerminal(idTerminal).setOnSilent();
         return;
+        }
       }
       else{
         showTerminal(idTerminal).setOnSilent();
         return;
-        }
       }
     }
 
