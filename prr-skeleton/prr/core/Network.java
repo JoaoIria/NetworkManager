@@ -60,9 +60,21 @@ public class Network implements Serializable {
   }
 
 
+ /**
+   * Adds to the network a communication
+   * 
+   */ 
+
   public void setCommunication(Communication c){
     _comunications.add(c);
   }
+
+
+ /**
+   * Returns all network communications
+   * 
+   * @return all communications
+   */ 
 
   public List<Communication> getAllCommunications(){
     List<Communication> comms = new ArrayList<>();
@@ -103,11 +115,24 @@ public class Network implements Serializable {
   }
 
 
-
+ /**
+   * Add a communication on hold
+   * 
+   * @param n notification
+   * 
+   */ 
 
   public void addWaitingNot(Notification n){
     _waitingNotifications.add(n);
   }
+
+
+ /**
+   * Change the client's level according to the rules
+   * 
+   * @param c client
+   * 
+   */ 
 
 
   public void changeClientStatus(Client c){
