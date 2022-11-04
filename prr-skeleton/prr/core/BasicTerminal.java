@@ -17,6 +17,7 @@ public class BasicTerminal extends Terminal{
       * @return the basic terminal in format of string
       */
 
+
     @Override
     public String toString(){
         if(this.getFriends().isEmpty()){
@@ -26,7 +27,7 @@ public class BasicTerminal extends Terminal{
         else{
             return("BASIC"+"|"+this.getTerminalID()+"|"+this.getTerminalClientID()+"|"+this.getTerminalMode().name()+"|"+Long.toString(Math.round(this.getTerminalPayments()))
             +"|"+Long.toString(Math.round(this.getTerminalDebts()))+"|"+
-            this.getFriends().toString().substring(1, getFriends().toString().length()-1).replace(" ", "")).toString();
+            this.getSortedFriends().toString().substring(1, getSortedFriends().toString().length()-1).replace(" ", "")).toString();
         }
     }
 }

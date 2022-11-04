@@ -1,7 +1,7 @@
 package prr.core;
 
 public abstract class Communication {
-    private static int _id;
+    private int _id;
     private String _idChegada;
     private String _idPartida;
     private boolean _isPaid;
@@ -10,18 +10,20 @@ public abstract class Communication {
     private String _status; /*ONGOING OU FINISHED */
     private int _duration;
     private String _type;
+    private static int _comNum;
 
 
     public Communication(String idChegada,String idPartida){
         _idChegada = idChegada;
         _idPartida = idPartida;
         _cost = 0;
-        incrementId();
+        incrementComNum();
+        _id = _comNum;
     }
 
-    /* ACRESCENTADO PELO AMADEU PODE ESTAR MAL */
-    public static void incrementId(){
-        _id +=1;
+
+    public static void incrementComNum(){
+        _comNum ++;
     }
 
     public void calculateVideoCost(){

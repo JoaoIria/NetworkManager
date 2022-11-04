@@ -1,34 +1,12 @@
 *** testsBoth/A-18-10-M-ok.out	2022-10-30 22:57:57.076821000 +0000
---- testsBoth/A-18-10-M-ok.outhyp	2022-11-04 02:13:05.999699654 +0000
-***************
-*** 100,105 ****
---- 100,109 ----
-  Escolha uma opção: 1
-  Identificador do cliente: cli001
-  CLIENT|cli001|Manuel Pinheiro|103443|NORMAL|YES|4|0|0
-+ []
-+ []
-+ []
-+ []
-  GESTÃO DE CLIENTES
-  1 - Visualizar cliente
-  2 - Visualizar todos os clientes
+--- testsBoth/A-18-10-M-ok.outhyp	2022-11-04 15:16:37.025774705 +0000
 ***************
 *** 111,117 ****
   Escolha uma opção: 1
   Identificador do cliente: cli003
   CLIENT|cli003|Pedro Oliveira|103449|NORMAL|YES|3|0|0
-! O2I|969003
+- O2I|969003
   GESTÃO DE CLIENTES
   1 - Visualizar cliente
   2 - Visualizar todos os clientes
---- 115,123 ----
-  Escolha uma opção: 1
-  Identificador do cliente: cli003
-  CLIENT|cli003|Pedro Oliveira|103449|NORMAL|YES|3|0|0
-! []
-! []
-! []
-  GESTÃO DE CLIENTES
-  1 - Visualizar cliente
-  2 - Visualizar todos os clientes
+--- 111,116 ----

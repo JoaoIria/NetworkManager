@@ -27,7 +27,9 @@ class DoShowClient extends Command<Network> {
     try{
     _display.addLine(_receiver.showClientById(key));
     for (String notification : _receiver.getNotifications(key)){
-      _display.addLine(notification);
+      if(notification != "[]"){ /*ALTERAR PARA "" QUANDO NOTS TIVEREM FEITAS */
+        _display.addLine(notification.toString());
+      }
     }
     _display.display();
     }catch(UnidentifiedClientKeyException ucke){

@@ -24,7 +24,7 @@ public class FancyTerminal extends Terminal{
         else{
             return("FANCY"+"|"+this.getTerminalID()+"|"+this.getTerminalClientID()+"|"+this.getTerminalMode().name()+"|"+Long.toString(Math.round(this.getTerminalPayments()))
             +"|"+Long.toString(Math.round(this.getTerminalDebts()))+"|"+
-            this.getFriends().toString().substring(1, getFriends().toString().length()-1).replace(" ", "")).toString();
+            this.getSortedFriends().toString().substring(1, getSortedFriends().toString().length()-1).replace(" ", "")).toString();
         }
     }
 }

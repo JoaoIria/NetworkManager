@@ -2,6 +2,8 @@ package prr.core;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.management.modelmbean.ModelMBean;
@@ -85,6 +87,15 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
 
   public String getTerminalType(){
     return _type;
+  }
+
+  public List <String> getSortedFriends(){
+    List <String> friends = new ArrayList<>();
+    for(String s: _friends){
+      friends.add(s);
+    }
+    Collections.sort(friends);
+    return friends;
   }
 
   /**
