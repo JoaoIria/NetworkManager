@@ -74,6 +74,6 @@ public class TextCommunication extends Communication{
     @Override
     public String toString(){
         return("TEXT"+"|"+Integer.toString(this.getIDComms())+"|"+this.returnIDPartida()+"|"+returnIDChegada()+"|"+
-        String.valueOf(_message.length())+"|"+String.valueOf(Math.round(getCost()))+"|"+getStatus());
+        Integer.valueOf(_message.length())+"|"+String.valueOf(Math.round(getCost()))+"|"+getStatus());
     }
 }

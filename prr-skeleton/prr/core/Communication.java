@@ -16,10 +16,14 @@ public abstract class Communication {
         _idChegada = idChegada;
         _idPartida = idPartida;
         _cost = 0;
-        _id+=1;
+        incrementId();
     }
 
         
+    public static void incrementId(){
+        _id +=1;
+    }
+
     public void calculateVideoCost(){
     };
 
