@@ -165,15 +165,6 @@ public class Network implements Serializable {
     }
 
 
-
- /**
-   * Adds a notification to a specific terminal.
-   * 
-   * @param t "Terminal"
-   * @param notification "notification"
-   * 
-   * @return notification in terminal t
-   */ 
  /**
    * Clear all notifications from a specific terminal.
    * 
@@ -186,11 +177,22 @@ public class Network implements Serializable {
     t.clearAllNotifications();
   }
 
+
+
+ /**
+   * Clear all notifications from a specific client.
+   * 
+   * @param key "Client ID"
+   * 
+   * @return all notifications erased
+   */ 
+
   public void clearCLientNotifications(String key) throws UnidentifiedClientKeyException{
     for(Terminal t : findTerminalsListByCliendId(key)){
       clearNotifications(t);
     }
   }
+
 
  /**
    * Get all notifications from a specific terminal.
@@ -217,6 +219,16 @@ public class Network implements Serializable {
     }
     return getNots;
   }
+
+
+
+ /**
+   * Get all waiting notifications from a specific terminal.
+   * 
+   * @param key "Terminal Client ID"
+   * 
+   * @return all notifications
+   */ 
 
 
   public List<String> getNotificationsWaiting(String key){
@@ -324,9 +336,30 @@ public class Network implements Serializable {
   }
 
 
+
+   /**
+   * Turn off a Terminal
+   * 
+   * @param idTerminal "Terminal ID"
+   * 
+   * @throws UnkTerminalIdException if terminal id doesn't exist
+   */ 
+
+
   public void TurnOffTerminal(String idTerminal) throws UnkTerminalIdException{
     showTerminal(idTerminal).turnOff();
   } 
+  
+
+  
+   /**
+   * Sets the Terminal to Idle and adds a notification to clients who tried to contact it.
+   * 
+   * @param idTerminal "Terminal ID"
+   * 
+   * @throws UnkTerminalIdException if terminal id doesn't exist
+   */ 
+
 
   public void setTerminalIdle(String idTerminal) throws UnkTerminalIdException{
     switch(showTerminal(idTerminal).getTerminalMode().name()){
@@ -417,6 +450,15 @@ public class Network implements Serializable {
       }
     }
   }
+
+  /**
+   * Sets the Terminal to Silence and adds a notification to clients who tried to contact it.
+   * 
+   * @param idTerminal "Terminal ID"
+   * 
+   * @throws UnkTerminalIdException if terminal id doesn't exist
+   * 
+   */ 
 
   public void setTerminalSilence(String idTerminal) throws UnkTerminalIdException{
     if(showTerminal(idTerminal).getTerminalMode().name().equals("OFF")){
@@ -513,6 +555,12 @@ public class Network implements Serializable {
     }throw new UnkTerminalIdException();
   }
 
+   /**
+   * Removes a terminal friend from a terminal
+   * 
+   * @param s1 "Terminal ID from the one that will receive the friend"
+   * @param s2 "Terminal ID from the one that will be added as a friend"
+   */ 
 
   public void removeFriend(String s1, String s2) throws InvTerminalKeyException,UnkTerminalIdException{
 
@@ -540,6 +588,13 @@ public class Network implements Serializable {
   }
 
 
+  /**
+   * Returns the network debts
+   * 
+   * @return Network debts
+   */ 
+
+
   public double getNetworkDebts(){
     
     double debts = 0;
@@ -551,6 +606,11 @@ public class Network implements Serializable {
     return debts;
   }
 
+     /**
+   * Returns all the payments in the network
+   * 
+   * @return double payments
+   */ 
 
   public double getNetworkPayments(){
     
@@ -563,6 +623,14 @@ public class Network implements Serializable {
     return payments;
   }
 
+
+  /**
+   * Enable client notifications for failed contacts
+   * 
+   * @throws UnidentifiedClientKeyException if client id doesn't exist
+   */ 
+
+
   public void activateClientNotifications(String ClientID) throws UnidentifiedClientKeyException{
     for(Client c: _clients){
       if(c.getClientID().equals(ClientID)){
@@ -571,6 +639,14 @@ public class Network implements Serializable {
       }
     }throw new UnidentifiedClientKeyException();
   }
+
+
+  /**
+   * Disable client notifications for failed contacts
+   * 
+   * @throws UnidentifiedClientKeyException if client id doesn't exist
+   */ 
+
 
   public void desactivateClientNotifications(String ClientID) throws UnidentifiedClientKeyException{
     for(Client c: _clients){
@@ -582,6 +658,14 @@ public class Network implements Serializable {
   }
 
 
+   /**
+   * RChecks if a Terminal exists.
+   * 
+   * @param TerminalId "Terminal ID "
+   *
+   * @return boolean
+   */ 
+
   public boolean existsTerminal (String TerminalID){
     for(Terminal t: _terminals){
       if(t.getTerminalID().equals(TerminalID)){
@@ -591,7 +675,11 @@ public class Network implements Serializable {
   }
 
 
-
+  /**
+   *  Shows all network communications
+   * 
+   * @return communications
+   */ 
 
 
   public List<String> showAllCommunications(){
@@ -603,7 +691,15 @@ public class Network implements Serializable {
   }
 
 
-  /* PQ N FUNCIONA NO TERMINAL???????????????????????????????????????????? */
+  /**
+   *  Shows all communications made by a client
+   * 
+   * @param id Client Id
+   * 
+   * @return communications
+   */ 
+
+
   public List<Communication> commsMadeByClient(String id){
     List<Communication> coms = new ArrayList<>();
     for(Communication c: _comunications){
@@ -613,6 +709,14 @@ public class Network implements Serializable {
     }
     return coms;
   }
+
+  /**
+   *  Shows all communications received by a client
+   * 
+   * @param id Client Id
+   * 
+   * @return communications
+   */ 
 
 
   public List<Communication> commsReceivedByClient(String ClientID){
@@ -626,7 +730,17 @@ public class Network implements Serializable {
   }
 
 
+  /**
+   *  Shows communications made by a client
+   * 
+   * @param id Client Id
+   * 
+   * @return communications
+   * 
+   * @throws UnidentifiedClientKeyException if client id doesn't exist
+   */ 
 
+   
   public List<String> showClientMadeComunications(String clientId) throws UnidentifiedClientKeyException{
     List <String> communications = new ArrayList<>();
     for(Terminal t: findTerminalsListByCliendId(clientId)){
@@ -638,6 +752,16 @@ public class Network implements Serializable {
   }
 
 
+    /**
+   *  Shows communications received by a client
+   * 
+   * @param id Client Id
+   * 
+   * @return communications
+   * 
+   * @throws UnidentifiedClientKeyException if client id doesn't exist
+   */ 
+  
 
   public List<String> showClientReceivedComunications(String clientId) throws UnidentifiedClientKeyException{
     List <String> communications = new ArrayList<>();
@@ -649,7 +773,11 @@ public class Network implements Serializable {
     return communications;
   }
 
-  
+    /**
+   *  Shows Clients with debts
+   * 
+   * @return clientsWithDebts
+   */ 
 
   public List<String> showClientsWithDebts(){
     List <String> clientsWithDebts = new ArrayList<>();
@@ -662,6 +790,14 @@ public class Network implements Serializable {
     return clientsWithDebts;
   }
 
+  
+  /**
+   *  Shows clients without debts
+   * 
+   * @return clients
+   */ 
+
+
   public List<String> showClientsWithoutDebts(){
     List <String> clientsNoDebts = new ArrayList<>();
     for(Client c : _clients){
@@ -672,6 +808,12 @@ public class Network implements Serializable {
     Collections.sort(clientsNoDebts);
     return clientsNoDebts;
   }
+
+    /**
+   *  Shows Terminals withs Positive Balance
+   * 
+   * @return terminals
+   */ 
 
   public List <String> showTerminalsWithPositiveBalance(){
     List <String> terminals = new ArrayList<>();
@@ -686,26 +828,55 @@ public class Network implements Serializable {
 
 
 
+    /**
+   *  Shows the terminal list belonging to a client.
+   * 
+   * @param clientID Client Id
+   * 
+   * @return Terminal List of Client
+   * 
+   * @throws UnidentifiedClientKeyException if client id doesn't exist
+   */ 
 
+   
   public List<Terminal> findTerminalsListByCliendId(String clientID) throws UnidentifiedClientKeyException{
     return findClientById(clientID).getTerminalList();
   }
   
 
-
+  /**
+   *  Shows a client payments
+   * 
+   * @return payments
+   * 
+   * @throws UnidentifiedClientKeyException if client id doesn't exist
+   */ 
 
   public double getClientPayments(String ID) throws UnidentifiedClientKeyException{
     return findClientById(ID).getPayments();
   }
 
 
+   /**
+   *  Shows a client debts
+   * 
+   * @return debts
+   * 
+   * @throws UnidentifiedClientKeyException if client id doesn't exist
+   */ 
 
   public double getClientDebts(String ID) throws UnidentifiedClientKeyException{
     return findClientById(ID).getDebts();
   }
 
 
-
+    /**
+   *  Shows ongoing Communications
+   * 
+   * @param t Terminal 
+   * 
+   * @return comms
+   */ 
 
   public List<String> getOngoingCommunications(Terminal t){
     List <String> comms = new ArrayList<>();
@@ -717,7 +888,16 @@ public class Network implements Serializable {
     return comms;
   }
 
-
+   /**
+   *  Initiate a text communication
+   * 
+   * @param t Terminal that iniciates the communication
+   * @param key Terminal ID that will receive the communication
+   * @param msg Message of the communication
+   * 
+   * @throws UnidentifiedClientKeyException if client id doesn't exist
+   * @throws UnkTerminalIdException if terminal id doesn't exist
+   */ 
 
   public void sendTextCommunication(Terminal t,String key, String msg) throws UnkTerminalIdException, UnidentifiedClientKeyException{
     Communication c = t.makeSMS(findClientById(t.getTerminalClientID()),showTerminal(key), msg);
@@ -737,7 +917,17 @@ public class Network implements Serializable {
   }
 
 
-
+   /**
+   *  Initiate a voice communication
+   * 
+   * @param t Terminal that iniciates the communication
+   * @param key Terminal ID that will receive the communication
+   * @param int duration of the communication
+   * 
+   * @throws UnidentifiedClientKeyException if client id doesn't exist
+   * @throws UnkTerminalIdException if terminal id doesn't exist
+   */ 
+  
   public void sendVoiceCommunication(Terminal t,String key, int duration) throws UnkTerminalIdException, UnidentifiedClientKeyException{
     t.setInicialTerminalMode(t.getTerminalMode());
     showTerminal(key).setInicialTerminalMode(showTerminal(key).getTerminalMode());
@@ -751,6 +941,16 @@ public class Network implements Serializable {
   }
 
 
+   /**
+   *  Initiate a video communication
+   * 
+   * @param t Terminal that iniciates the communication
+   * @param key Terminal ID that will receive the communication
+   * @param int duration of the communication
+   * 
+   * @throws UnidentifiedClientKeyException if client id doesn't exist
+   * @throws UnkTerminalIdException if terminal id doesn't exist
+   */ 
 
   public void sendVideoCommunication(Terminal t,String key, int duration) throws UnkTerminalIdException, UnidentifiedClientKeyException{
     t.setInicialTerminalMode(t.getTerminalMode());
@@ -763,6 +963,19 @@ public class Network implements Serializable {
     showTerminal(key).setOnBusy();
     _comunications.add(c);
   }
+
+
+    /**
+   *  Ends an Interactive comunication, changing the terminals types, 
+   * calculating the communication costs and adds them to the clients and terminals
+   * 
+   * @param s1 Comunication type
+   * @param t Terminal
+   * @param duration Communication duration
+   * 
+   * @throws UnidentifiedClientKeyException if client id doesn't exist
+   * @throws UnkTerminalIdException if terminal id doesn't exist
+   */ 
 
   public void endInteractiveCommunication(String s1, Terminal t,int duration) throws UnidentifiedClientKeyException,UnkTerminalIdException{
     
@@ -818,6 +1031,14 @@ public class Network implements Serializable {
   }
 
 
+   /**
+   *  Pays a communication cost
+   * 
+   * @param id  Id of a communication
+   * 
+   * @throws UnidentifiedClientKeyException if client id doesn't exist
+   * @throws UnkTerminalIdException if terminal id doesn't exist
+   */ 
 
   public void MakePayment(int id) throws UnidentifiedClientKeyException, UnkTerminalIdException{
     for(Communication c: _comunications){

@@ -258,28 +258,6 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
     return true;
   }
 
-  /* 
-  public List<Communication> commsMadeByClient(String id){
-    List<Communication> coms = new ArrayList<>();
-    for(Communication c: _comunications){
-      if(c.returnIDPartida().equals(id)){
-        coms.add(c);
-      }
-    }
-    return coms;
-  }
-
-
-  public List<Communication> commsReceivedByClient(String ClientID){
-    List<Communication> coms = new ArrayList<>();
-    for(Communication c: _comunications){
-      if(c.returnIDChegada().equals(ClientID)){
-        coms.add(c);
-      }
-    }
-    return coms;
-  }*/
-
   public void setPaymentTerminal(double payment){
     _payments += payment;
     _debt -= payment;
