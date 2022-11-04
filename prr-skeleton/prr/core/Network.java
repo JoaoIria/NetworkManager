@@ -166,8 +166,6 @@ public class Network implements Serializable {
 
 
 
-
-
  /**
    * Adds a notification to a specific terminal.
    * 
@@ -186,6 +184,12 @@ public class Network implements Serializable {
 
   public void clearNotifications(Terminal t){
     t.clearAllNotifications();
+  }
+
+  public void clearCLientNotifications(String key) throws UnidentifiedClientKeyException{
+    for(Terminal t : findTerminalsListByCliendId(key)){
+      clearNotifications(t);
+    }
   }
 
  /**
@@ -321,14 +325,17 @@ public class Network implements Serializable {
   } 
 
   public void setTerminalIdle(String idTerminal) throws UnkTerminalIdException{
+    Notification temp = null;
     switch(showTerminal(idTerminal).getTerminalMode().name()){
       case("OFF"):{
         if(_waitingNotifications != null){
           for(Notification n : _waitingNotifications){
             if(n.getNotificationType().name().equals("O2I") && n.getNotificationArrivalId().equals(idTerminal)){
               showTerminal(n.getNotificationDepartureId()).addNotification(n);
+              temp = n;
             }
           }
+          _waitingNotifications.remove(temp);
           showTerminal(idTerminal).setOnIdle();
           return;
         }
@@ -342,8 +349,10 @@ public class Network implements Serializable {
           for(Notification n : _waitingNotifications){
             if(n.getNotificationType().name().equals("S2I") && n.getNotificationArrivalId().equals(idTerminal)){
               showTerminal(n.getNotificationDepartureId()).addNotification(n);
+              temp = n;
             }
           }
+          _waitingNotifications.remove(temp);
           showTerminal(idTerminal).setOnIdle();
           return;
         }
@@ -357,8 +366,10 @@ public class Network implements Serializable {
           for(Notification n : _waitingNotifications){
             if(n.getNotificationType().name().equals("B2I") && n.getNotificationArrivalId().equals(idTerminal)){
               showTerminal(n.getNotificationDepartureId()).addNotification(n);
+              temp = n;
             }
           }
+          _waitingNotifications.remove(temp);
           showTerminal(idTerminal).setOnIdle();
           return;
         }
@@ -372,15 +383,19 @@ public class Network implements Serializable {
   }
 
   public void setTerminalSilence(String idTerminal) throws UnkTerminalIdException{
-    if(showTerminal(idTerminal).getTerminalMode().name().equals("OFF"))
+    Notification temp=null;
+    if(showTerminal(idTerminal).getTerminalMode().name().equals("OFF")){
       for(Notification n : _waitingNotifications){
         if(n.getNotificationType().name().equals("B2I") && n.getNotificationArrivalId().equals(idTerminal)){
           showTerminal(n.getNotificationDepartureId()).addNotification(n);
-          showTerminal(idTerminal).setOnSilent();
-          return;
+          temp = n;
+          
         }
       }
-      
+      _waitingNotifications.remove(temp);
+      showTerminal(idTerminal).setOnSilent();
+      return;
+      }
       else{
         showTerminal(idTerminal).setOnSilent();
         return;

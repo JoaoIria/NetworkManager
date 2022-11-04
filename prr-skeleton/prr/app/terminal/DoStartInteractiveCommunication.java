@@ -33,16 +33,19 @@ class DoStartInteractiveCommunication extends TerminalCommand {
       else{
         if(_network.showTerminal(terminalKey).getTerminalMode().name().equals("OFF")){
           _network.addWaitingNot(new Notification("O2I",_receiver.getTerminalID(),terminalKey));
+          _network.addWaitingNot(new Notification("S2I",_receiver.getTerminalID(),terminalKey));
           _display.add(Message.destinationIsOff(terminalKey));
           _display.display();
           return;}
         if(_network.showTerminal(terminalKey).getTerminalMode().name().equals("BUSY")){
           _network.addWaitingNot(new Notification("B2I",_receiver.getTerminalID(),terminalKey));
+          _network.addWaitingNot(new Notification("S2I",_receiver.getTerminalID(),terminalKey));
           _display.add(Message.destinationIsBusy(terminalKey));
           _display.display();
           return;}
         if(_network.showTerminal(terminalKey).getTerminalMode().name().equals("SILENCE")){
           _network.addWaitingNot(new Notification("S2I",_receiver.getTerminalID(),terminalKey));
+          _network.addWaitingNot(new Notification("O2I",_receiver.getTerminalID(),terminalKey));
           _display.add(Message.destinationIsSilent(terminalKey));
           _display.display();
           return;}
