@@ -1,6 +1,7 @@
 package prr.app.terminal;
 
 import prr.core.Network;
+import prr.core.Notification;
 import prr.core.Terminal;
 import prr.core.exception.UnidentifiedClientKeyException;
 import prr.core.exception.UnkTerminalIdException;
@@ -36,6 +37,7 @@ class DoSendTextCommunication extends TerminalCommand {
       }
       else{
         if(_network.showTerminal(terminalKey).getTerminalMode().name().equals("OFF")){
+          _network.addNotifications(_receiver,new Notification("I2O",_receiver.getTerminalID(),terminalKey));
           _display.add(Message.destinationIsOff(terminalKey));
           _display.display();
           return;

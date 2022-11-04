@@ -100,6 +100,12 @@ public class Network implements Serializable {
     throw new UnidentifiedClientKeyException();
   }
 
+  /*public void sendNotification(Terminal t){
+    for(Notification n: t.getNotificiationsWai()){
+      if(showTerminal(n.getNotificationDepartureId()).getTerminalMode().name().equals(t)))
+    }
+  }*/
+
 
 
  /**
@@ -112,7 +118,12 @@ public class Network implements Serializable {
    */ 
 
   public void addNotifications(Terminal t, Notification notification){
-    t.addNotification(notification);
+    for(Client c: _clients){
+      if(c.getTerminalList().contains(t)){
+        if(c.getClientNotificationStatus() == true);
+        t.addWaitingNot(notification);
+      }
+    }
   }
 
  /**
@@ -148,6 +159,21 @@ public class Network implements Serializable {
     }
     return getNots;
   }
+
+
+  /*public List<String> getNotificationsWaiting(String key){
+
+
+    List<String> getNots = new ArrayList<>();
+
+    for(Terminal t: _terminals){
+      if(t.getTerminalClientID().equals(key)){
+        getNots.add(t.getNotificiations().toString());
+        clearNotifications(t);
+      }
+    }
+    return getNots;
+  }*/
 
    /**
    * Show all clients from the network.
@@ -522,12 +548,24 @@ public class Network implements Serializable {
 
 
 
-
   public void sendTextCommunication(Terminal t,String key, String msg) throws UnkTerminalIdException, UnidentifiedClientKeyException{
     Communication c = t.makeSMS(findClientById(t.getTerminalClientID()),showTerminal(key), msg);
-    findClientById(t.getTerminalClientID()).setDebtClient(c.getCost());
-    _comunications.add(c);
+    if(t.getFriends().contains(key)){
+      findClientById(t.getTerminalClientID()).setDebtClient(c.getCost()/2);
+      t.setDebtTerminal(c.getCost()/2);
+      c.setCost(c.getCost()/2);
+      _comunications.add(c);
+      return;
+    }
+    else{
+      findClientById(t.getTerminalClientID()).setDebtClient(c.getCost());
+      t.setDebtTerminal(c.getCost());
+      _comunications.add(c);
+      return;
+    }
   }
+
+
 
   public void sendVoiceCommunication(Terminal t,String key, int duration) throws UnkTerminalIdException, UnidentifiedClientKeyException{
     t.setInicialTerminalMode(t.getTerminalMode());
@@ -540,6 +578,8 @@ public class Network implements Serializable {
     showTerminal(key).setOnBusy();
     _comunications.add(c);
   }
+
+
 
   public void sendVideoCommunication(Terminal t,String key, int duration) throws UnkTerminalIdException, UnidentifiedClientKeyException{
     t.setInicialTerminalMode(t.getTerminalMode());
@@ -565,7 +605,15 @@ public class Network implements Serializable {
               c.setDuration(duration);
               c.setStatus("FINISHED");
               vc.calculateVoiceCost(findClientById(t.getTerminalClientID()),duration);
+              if(t.getFriends().contains(s1)){
+                t.setDebtTerminal(c.getCost()/2);
+                findClientById(t.getTerminalClientID()).setDebtClient(c.getCost()/2);
+                c.setCost(c.getCost()/2);
+              }
+              else{
               t.setDebtTerminal(c.getCost());
+              findClientById(t.getTerminalClientID()).setDebtClient(c.getCost());
+              }
               t.setOnInicialTerminalMode(t.getInicialTerminalMode());
               showTerminal(c.returnIDChegada()).setOnInicialTerminalMode(showTerminal(c.returnIDChegada()).getInicialTerminalMode());
             }
@@ -580,7 +628,15 @@ public class Network implements Serializable {
               c.setDuration(duration);
               c.setStatus("FINISHED");
               vc.calculateVideoCost(findClientById(t.getTerminalClientID()),duration);
+              if(t.getFriends().contains(s1)){
+                t.setDebtTerminal(c.getCost()/2);
+                findClientById(t.getTerminalClientID()).setDebtClient(c.getCost()/2);
+                c.setCost(c.getCost()/2);
+              }
+              else{
               t.setDebtTerminal(c.getCost());
+              findClientById(t.getTerminalClientID()).setDebtClient(c.getCost());
+              }
               t.setOnInicialTerminalMode(t.getInicialTerminalMode());
               showTerminal(c.returnIDChegada()).setOnInicialTerminalMode(showTerminal(c.returnIDChegada()).getInicialTerminalMode());
             }

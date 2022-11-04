@@ -31,6 +31,7 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
   private List <String> _friends;
   private List <Notification> _notifications;
   private List <Communication> _comunications;
+  private List <Notification> _waitingNotifications;
 
 
    /**
@@ -163,6 +164,10 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
     _notifications.add(n);
   }
 
+  public void addWaitingNot(Notification n){
+    _waitingNotifications.add(n);
+  }
+
 
   /**
    * Deletes all the Notifications in the terminal's list of Notifications
@@ -293,7 +298,6 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
     Communication comm = new TextCommunication(toTerminal.getTerminalID(),this.getTerminalID(),text, c);
     _comunications.add(comm);
     toTerminal._comunications.add(comm);
-    _debt += comm.getCost();
     return comm;
   }
 
