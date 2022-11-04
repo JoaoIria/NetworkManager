@@ -206,9 +206,13 @@ public class Network implements Serializable {
     List<String> getNots = new ArrayList<>();
 
     for(Terminal t: _terminals){
-      if(t.getTerminalClientID().equals(key)){
-        getNots.add(t.getNotificiations().toString());
-        clearNotifications(t);
+      if(t.getTerminalClientID().equals(key) && !t.getNotificiations().isEmpty()){
+        for(Notification n: t.getNotificiations()){
+          if(!getNots.contains(n.toString())){
+            getNots.add(n.toString());
+          }
+        }
+        t.getNotificiations().clear();
       }
     }
     return getNots;
@@ -332,53 +336,19 @@ public class Network implements Serializable {
           for(Notification wn: _waitingNotifications){
             if(wn.getNotificationArrivalId().equals(idTerminal)){
               toRemove.add(wn);
-              Boolean exists = false;
+              boolean exists = false;
               Terminal dt = showTerminal(wn.getNotificationDepartureId());
               for(Notification n: dt.getNotificiations()){
                 if(n.getNotificationArrivalId().equals(idTerminal)){
                   exists = true;
-                  break;
                 }
               }
               if(!exists && wn.getNotificationType().name().equals("O2I")){
-                dt.addNotification(wn);
+                  dt.addNotification(wn);
               }
             }
           }
           _waitingNotifications.removeAll(toRemove);
-
-
-
-
-
-
-
-          /*List<Notification> nt = _waitingNotifications.stream().filter(n -> n.getNotificationArrivalId().equals(idTerminal)).toList();
-          for(Notification notification : nt){
-            Boolean exists = false;
-            Terminal t = showTerminal(notification.getNotificationDepartureId());
-            for(Notification nter : t.getNotificiations()){
-                if(nter.getNotificationDepartureId().equals(notification.getNotificationDepartureId())){
-                  exists = true;
-                  break;
-                  }
-                }
-                if(!exists && notification.getNotificationType().name().equals("O2I") &&
-                  notification.getNotificationDepartureId().equals(t.getTerminalID())){
-                    t.addNotification(notification);
-                }  
-          }
-          _waitingNotifications.removeAll(nt);*/
-
-
-
-          /*for(Notification n : _waitingNotifications){
-            if(n.getNotificationType().name().equals("O2I") && n.getNotificationArrivalId().equals(idTerminal)){
-              showTerminal(n.getNotificationDepartureId()).addNotification(n);
-              temp = n.getNotificationDepartureId();
-            }
-          }
-          _waitingNotifications.removeIf(n -> n.getNotificationArrivalId().equals(idTerminal));*/
           showTerminal(idTerminal).setOnIdle();
           return;
         }
@@ -388,14 +358,6 @@ public class Network implements Serializable {
         }
       }
       case("SILENCE"):{
-        /*if(_waitingNotifications != null){
-          for(Notification n : _waitingNotifications){
-            if(n.getNotificationType().name().equals("S2I") && n.getNotificationArrivalId().equals(idTerminal)){
-              showTerminal(n.getNotificationDepartureId()).addNotification(n);
-              temp = n;
-            }
-          }
-          _waitingNotifications.remove(temp);*/
           if(_waitingNotifications != null){
             List<Notification> toRemove = new ArrayList<>();
             for(Notification wn: _waitingNotifications){
@@ -425,14 +387,6 @@ public class Network implements Serializable {
         }
       }
       case("BUSY"):{
-        /*if(_waitingNotifications != null){
-          for(Notification n : _waitingNotifications){
-            if(n.getNotificationType().name().equals("B2I") && n.getNotificationArrivalId().equals(idTerminal)){
-              showTerminal(n.getNotificationDepartureId()).addNotification(n);
-              temp = n;
-            }
-          }
-          _waitingNotifications.remove(temp);*/
           if(_waitingNotifications != null){
             List<Notification> toRemove = new ArrayList<>();
             for(Notification wn: _waitingNotifications){
@@ -462,7 +416,6 @@ public class Network implements Serializable {
         }
       }
     }
-
   }
 
   public void setTerminalSilence(String idTerminal) throws UnkTerminalIdException{
@@ -486,9 +439,8 @@ public class Network implements Serializable {
           }
         }
         _waitingNotifications.removeAll(toRemove);
-
-      showTerminal(idTerminal).setOnSilent();
-      return;
+        showTerminal(idTerminal).setOnSilent();
+        return;
       }
       else{
         showTerminal(idTerminal).setOnSilent();

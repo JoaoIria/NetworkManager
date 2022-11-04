@@ -29,8 +29,8 @@ class DoShowClient extends Command<Network> {
     try{
     _display.addLine(_receiver.showClientById(key));
     for (String notification : _receiver.getNotifications(key)){
-      if(notification != "[]"){ /*ALTERAR PARA "" QUANDO NOTS TIVEREM FEITAS */
-        _display.addLine(notification.toString().substring(1, notification.toString().length()-1)).toString();
+      if(notification != "[]"){ 
+        _display.addLine(notification.toString());
         _receiver.clearCLientNotifications(key);
       }
     }
