@@ -1,23 +1,28 @@
 package prr.core;
 
 public abstract class Communication {
-    private int _id = 0;
+    private static int _id;
     private String _idChegada;
     private String _idPartida;
     private boolean _isPaid;
     private double _cost;
     private boolean _isOngoing;
-    private int _duration;
     private String _status; /*ONGOING OU FINISHED */
+    private int _duration;
+    private String _type;
 
 
     public Communication(String idChegada,String idPartida){
         _idChegada = idChegada;
         _idPartida = idPartida;
         _cost = 0;
-        _id += 1;
+        _id+=1;
     }
-    
+
+        
+    public void calculateVideoCost(){
+    };
+
     public int getIDComms(){
         return _id;
     }
@@ -26,7 +31,19 @@ public abstract class Communication {
         return _status;
     }
 
-    public double getDuration(){
+    public void setType(String type){
+        _type = type;
+    }
+
+    public String getType(){
+        return _type;
+    }
+
+    public void setDuration(int duration){
+        _duration = duration;
+    }
+
+    public int getDuration(){
         return _duration;
     }
 
@@ -37,6 +54,11 @@ public abstract class Communication {
     public boolean isPaid(){
         return _isPaid;
     }
+
+    public void setPayment(){
+        _isPaid = true;
+    }
+
     public boolean isOngoing(){
         return _isOngoing;
     }
@@ -45,10 +67,13 @@ public abstract class Communication {
         _cost = cost;
     }
 
+    public void setOnGoing(boolean is){
+        _isOngoing = is;
+    }
+
     public void setStatus(String Status){
         _status = Status;
     }
-
     /**
     * @return the communication departure terminal
     */

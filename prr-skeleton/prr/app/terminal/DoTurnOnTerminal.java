@@ -19,8 +19,8 @@ class DoTurnOnTerminal extends TerminalCommand {
   @Override
   protected final void execute() throws CommandException {
     try{
-        if(_receiver.getTerminalMode().name().equals("SILENCE")){
-          _display.add(Message.alreadySilent());
+        if(_receiver.getTerminalMode().name().equals("IDLE")){
+          _display.add(Message.alreadyOn());
           _display.display();
           return;
         }

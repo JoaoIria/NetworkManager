@@ -8,7 +8,7 @@ public class FancyTerminal extends Terminal{
       */ 
       
     public FancyTerminal(String id, String clientId){ 
-        super(id, clientId);
+        super(id, clientId,"FANCY");
     }
 
     /**

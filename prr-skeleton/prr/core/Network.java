@@ -1,22 +1,16 @@
 package prr.core;
 import java.io.Serializable;
-import java.security.PublicKey;
-import java.text.Normalizer.Form;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.io.IOException;
 
 import prr.core.exception.SameClientKeyException;
-import prr.core.exception.NoNotificationsKeyException;
 import prr.core.exception.UnrecognizedEntryException;
-import pt.tecnico.uilib.Display;
 import prr.core.exception.UnidentifiedClientKeyException;
 import prr.core.exception.SameTerminalKeyException;
 import prr.core.exception.InvTerminalKeyException;
-import prr.core.exception.TerminalAlreadyOffException;
 import prr.core.exception.UnkTerminalIdException;
-import prr.core.exception.UnknownIdentifierException;
 
 
 /**
@@ -412,36 +406,51 @@ public class Network implements Serializable {
   }
 
 
+  /* PQ N FUNCIONA NO TERMINAL???????????????????????????????????????????? */
+  public List<Communication> commsMadeByClient(String id){
+    List<Communication> coms = new ArrayList<>();
+    for(Communication c: _comunications){
+      if(c.returnIDPartida().equals(id)){
+        coms.add(c);
+      }
+    }
+    return coms;
+  }
+
+
+  public List<Communication> commsReceivedByClient(String ClientID){
+    List<Communication> coms = new ArrayList<>();
+    for(Communication c: _comunications){
+      if(c.returnIDChegada().equals(ClientID)){
+        coms.add(c);
+      }
+    }
+    return coms;
+  }
 
 
 
   public List<String> showClientMadeComunications(String clientId) throws UnidentifiedClientKeyException{
     List <String> communications = new ArrayList<>();
     for(Terminal t: findTerminalsListByCliendId(clientId)){
-      for(Communication c: t.commsMadeByClient()){
+      for(Communication c: commsMadeByClient(t.getTerminalID())){
         communications.add(c.toString());
       }
     }
-    System.out.println(communications.toString());
     return communications;
   }
-
-
 
 
 
   public List<String> showClientReceivedComunications(String clientId) throws UnidentifiedClientKeyException{
     List <String> communications = new ArrayList<>();
     for(Terminal t: findTerminalsListByCliendId(clientId)){
-      for(Communication c: t.commsReceivedByClient(clientId)){
+      for(Communication c: commsReceivedByClient(t.getTerminalID())){
         communications.add(c.toString());
       }
     }
     return communications;
   }
-
-
-
 
   
 
@@ -500,27 +509,84 @@ public class Network implements Serializable {
 
 
 
-  public void sendTextCommunication(Terminal t,String key, String msg) throws UnkTerminalIdException, UnidentifiedClientKeyException{
-    if(t.getTerminalMode().name().equals("IDLE") || t.getTerminalMode().name().equals("SILENCE")){
-      Communication c = t.makeSMS(findClientById(t.getTerminalClientID()),showTerminal(key), msg);
-      findClientById(t.getTerminalClientID()).setDebtClient(c.getCost());
-      _comunications.add(c);
+
+  public List<String> getOngoingCommunications(Terminal t){
+    List <String> comms = new ArrayList<>();
+    for(Communication c: t.getCommunications()){
+      if(c.isOngoing()){
+        comms.add(c.toString());
+      }
     }
+    return comms;
+  }
+
+
+
+
+  public void sendTextCommunication(Terminal t,String key, String msg) throws UnkTerminalIdException, UnidentifiedClientKeyException{
+    Communication c = t.makeSMS(findClientById(t.getTerminalClientID()),showTerminal(key), msg);
+    findClientById(t.getTerminalClientID()).setDebtClient(c.getCost());
+    _comunications.add(c);
   }
 
   public void sendVoiceCommunication(Terminal t,String key, int duration) throws UnkTerminalIdException, UnidentifiedClientKeyException{
-    if(t.getTerminalMode().name().equals("IDLE") || t.getTerminalMode().name().equals("SILENCE")){
-      Communication c = t.makeVoiceCall(findClientById(t.getTerminalClientID()),showTerminal(key), duration);
-      findClientById(t.getTerminalClientID()).setDebtClient(c.getCost());
-      _comunications.add(c);
-    }
+    t.setInicialTerminalMode(t.getTerminalMode());
+    showTerminal(key).setInicialTerminalMode(showTerminal(key).getTerminalMode());
+
+    Communication c = t.makeVoiceCall(findClientById(t.getTerminalClientID()),showTerminal(key), duration);
+    c.setStatus("ONGOING");
+    c.setOnGoing(true);
+    t.setOnBusy();
+    showTerminal(key).setOnBusy();
+    _comunications.add(c);
   }
 
   public void sendVideoCommunication(Terminal t,String key, int duration) throws UnkTerminalIdException, UnidentifiedClientKeyException{
-    if(t.getTerminalMode().name().equals("IDLE") || t.getTerminalMode().name().equals("SILENCE")){
-      Communication c = t.makeVideoCall(findClientById(t.getTerminalClientID()),showTerminal(key), duration);
-      findClientById(t.getTerminalClientID()).setDebtClient(c.getCost());
-      _comunications.add(c);
+    t.setInicialTerminalMode(t.getTerminalMode());
+    showTerminal(key).setInicialTerminalMode(showTerminal(key).getTerminalMode());
+
+    Communication c = t.makeVideoCall(findClientById(t.getTerminalClientID()),showTerminal(key), duration);
+    c.setStatus("ONGOING");
+    c.setOnGoing(true);
+    t.setOnBusy();
+    showTerminal(key).setOnBusy();
+    _comunications.add(c);
+  }
+
+  public void endInteractiveCommunication(String s1, Terminal t,int duration) throws UnidentifiedClientKeyException,UnkTerminalIdException{
+    
+    switch(s1){
+      case("VOICE"):{
+        for(Communication c: _comunications){
+          if(c.getType().equals("VOICE")){
+            VoiceCommunication vc = (VoiceCommunication)c;
+            if(c.getStatus().equals("ONGOING") && c.returnIDPartida().equals(t.getTerminalID())){
+              c.setOnGoing(false);
+              c.setDuration(duration);
+              c.setStatus("FINISHED");
+              vc.calculateVoiceCost(findClientById(t.getTerminalClientID()),duration);
+              t.setDebtTerminal(c.getCost());
+              t.setOnInicialTerminalMode(t.getInicialTerminalMode());
+              showTerminal(c.returnIDChegada()).setOnInicialTerminalMode(showTerminal(c.returnIDChegada()).getInicialTerminalMode());
+            }
+          }
+        }
+      }case("VIDEO"):{
+        for(Communication c: _comunications){
+          if(c.getType().equals("VIDEO")){
+            VideoCommunication vc = (VideoCommunication)c;
+            if(c.getStatus().equals("ONGOING") && c.returnIDPartida().equals(t.getTerminalID())){
+              c.setOnGoing(false);
+              c.setDuration(duration);
+              c.setStatus("FINISHED");
+              vc.calculateVideoCost(findClientById(t.getTerminalClientID()),duration);
+              t.setDebtTerminal(c.getCost());
+              t.setOnInicialTerminalMode(t.getInicialTerminalMode());
+              showTerminal(c.returnIDChegada()).setOnInicialTerminalMode(showTerminal(c.returnIDChegada()).getInicialTerminalMode());
+            }
+          }
+        }
+      }
     }
   }
 
@@ -531,6 +597,7 @@ public class Network implements Serializable {
       if(c.getIDComms() == id){
         showTerminal(c.returnIDPartida()).setPaymentTerminal(c.getCost());
         findClientById(showTerminal(c.returnIDPartida()).getTerminalClientID()).setPaymentClient(c.getCost());
+        c.setPayment();
         return;
       }
     }
@@ -563,5 +630,6 @@ public class Network implements Serializable {
   public Network getNetwork() {
     return this;
   }
+
 }
 

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.management.modelmbean.ModelMBean;
+
 import prr.core.exception.UnidentifiedClientKeyException;
 import prr.core.exception.InvTerminalKeyException;
 import prr.core.exception.UnkTerminalIdException;
@@ -17,11 +19,12 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
   /** Serial number for serialization. */
   private static final long serialVersionUID = 202208091753L;
 
-  private Client _client;
   private String _clientId;
   private String _id;
   private double _debt;
   private double _payments;
+  private String _type;
+  private TerminalMode _inicialMode;
   private TerminalMode _mode;
   private List <String> _friends;
   private List <Notification> _notifications;
@@ -32,7 +35,7 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
    * Constructor
    */ 
   
-  public Terminal(String id, String clientId){
+  public Terminal(String id, String clientId, String type){
     _id = id;
     _debt = 0;
     _payments = 0;
@@ -41,6 +44,7 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
     _friends = new ArrayList<>();
     _notifications = new ArrayList<>();
     _comunications = new ArrayList<>();
+    _type = type;
   }
 
   /**
@@ -67,6 +71,21 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
     return _payments;
   }
 
+  public TerminalMode getInicialTerminalMode(){
+    return _inicialMode;
+  }
+
+  public void setInicialTerminalMode(TerminalMode mode){
+     _inicialMode = mode;
+  }
+
+  public void setOnInicialTerminalMode(TerminalMode mode){
+    _mode = mode;
+  }
+
+  public String getTerminalType(){
+    return _type;
+  }
 
   /**
    * Gets the Terminal's debt
@@ -227,11 +246,11 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
     return true;
   }
 
-  public List<Communication> commsMadeByClient(){
-    System.out.println(_comunications.toString());
+  /* 
+  public List<Communication> commsMadeByClient(String id){
     List<Communication> coms = new ArrayList<>();
     for(Communication c: _comunications){
-      if(c.returnIDPartida().equals(this._id)){
+      if(c.returnIDPartida().equals(id)){
         coms.add(c);
       }
     }
@@ -247,7 +266,7 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
       }
     }
     return coms;
-  }
+  }*/
 
   public void setPaymentTerminal(double payment){
     _payments += payment;
@@ -258,39 +277,26 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
     _debt += debt;
   }
 
-  public List<String> getOngoingCommunications(){
-    List <String> comms = new ArrayList<>();
-    for(Communication c: _comunications){
-      if(c.isOngoing()){
-        comms.add(c.toString());
-      }
-    }
-    return comms;
-  }
-
-
 
   public Communication makeSMS(Client c,Terminal toTerminal, String text) throws UnidentifiedClientKeyException{
     Communication comm = new TextCommunication(toTerminal.getTerminalID(),this.getTerminalID(),text, c);
-    this._comunications.add(comm);
+    _comunications.add(comm);
     toTerminal._comunications.add(comm);
     _debt += comm.getCost();
     return comm;
   }
 
   public Communication makeVoiceCall(Client c, Terminal toTerminal, int duration) throws UnidentifiedClientKeyException{
-    Communication comm = new VoiceCommunication(toTerminal.getTerminalID(),this.getTerminalID(),duration, c);
-    this._comunications.add(comm);
+    Communication comm = new VoiceCommunication(toTerminal.getTerminalID(),this.getTerminalID(), c);
+    _comunications.add(comm);
     toTerminal._comunications.add(comm);
-    _debt += comm.getCost();
     return comm;
   }
 
   public Communication makeVideoCall(Client c, Terminal toTerminal, int duration) throws UnidentifiedClientKeyException{
-    Communication comm = new VideoCommunication(toTerminal.getTerminalID(),this.getTerminalID(),duration, c);
+    Communication comm = new VideoCommunication(toTerminal.getTerminalID(),this.getTerminalID(), c);
     _comunications.add(comm);
     toTerminal._comunications.add(comm);
-    _debt += comm.getCost();
     return comm;
   }
 

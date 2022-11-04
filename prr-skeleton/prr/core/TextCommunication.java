@@ -11,6 +11,7 @@ public class TextCommunication extends Communication{
         calculateTextCost(c, message);
         setStatus("FINISHED");
         _message = message;
+        setType("TEXT");
     }
 
 

@@ -10,7 +10,7 @@ public class BasicTerminal extends Terminal{
      */ 
 
     public BasicTerminal(String id, String clientId){ 
-        super(id, clientId);
+        super(id, clientId,"BASIC");
     }
 
     /**

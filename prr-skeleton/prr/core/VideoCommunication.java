@@ -2,11 +2,11 @@ package prr.core;
 
 public class VideoCommunication extends InteractiveCommunication{
 
-    public VideoCommunication(String idChegada,String idPartida,int duration, Client c){
-        super(idChegada, idPartida, duration);
-        calculateVideoCost(c, duration);
+    public VideoCommunication(String idChegada,String idPartida, Client c){
+        super(idChegada, idPartida);
+        calculateVideoCost(c, this.getDuration());
+        setType("VIDEO");
     }
-
 
     public void calculateVideoCost(Client c1, int duration){
         switch(c1.getClientLevel().name()){
@@ -28,7 +28,7 @@ public class VideoCommunication extends InteractiveCommunication{
     @Override
     public String toString(){
         return("VIDEO"+"|"+Integer.toString(getIDComms())+"|"+returnIDPartida()+"|"+returnIDChegada()+"|"+
-        String.valueOf(getDuration())+"|"+String.valueOf(getCost())+"|"+getStatus());
+        String.valueOf(Math.round(getDuration())+"|"+String.valueOf(Math.round(getCost()))+"|"+getStatus()));
 
     }
 }
