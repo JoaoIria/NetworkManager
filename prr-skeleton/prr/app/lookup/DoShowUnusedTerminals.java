@@ -4,8 +4,6 @@ package prr.app.lookup;
 import prr.core.Network;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-import java.util.LinkedList;
-import prr.core.Terminal;
 import java.util.List;
 import java.util.ArrayList;
 /**

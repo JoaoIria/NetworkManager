@@ -6,15 +6,9 @@ import prr.core.Terminal;
 import prr.core.exception.UnidentifiedClientKeyException;
 import prr.core.exception.UnkTerminalIdException;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import prr.app.exception.UnknownClientKeyException;
 import prr.app.exception.UnknownTerminalKeyException;
-import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME add more imports if needed
-
 /**
  * Command for sending a text communication.
  */

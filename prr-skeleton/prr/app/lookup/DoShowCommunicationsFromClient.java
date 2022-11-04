@@ -1,8 +1,5 @@
 package prr.app.lookup;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import prr.core.Network;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;

@@ -3,10 +3,7 @@ package prr.app.client;
 import prr.core.Network;
 
 import prr.core.exception.UnidentifiedClientKeyException;
-import prr.core.exception.UnkTerminalIdException;
 import prr.app.exception.UnknownClientKeyException;
-import prr.app.exception.UnknownTerminalKeyException;
-import prr.core.exception.NoNotificationsKeyException;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;

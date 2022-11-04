@@ -1,14 +1,10 @@
 package prr.app.terminals;
 
-import java.util.Collections;
 
 import prr.core.Network;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-import prr.core.Client;
-import prr.core.Network;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 

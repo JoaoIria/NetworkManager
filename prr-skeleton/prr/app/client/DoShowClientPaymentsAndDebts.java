@@ -1,6 +1,5 @@
 package prr.app.client;
 
-import prr.core.Client;
 import prr.core.Network;
 import prr.core.exception.UnidentifiedClientKeyException;
 import prr.app.exception.UnknownClientKeyException;

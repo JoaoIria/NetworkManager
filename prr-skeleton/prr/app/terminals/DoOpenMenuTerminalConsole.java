@@ -1,11 +1,8 @@
 package prr.app.terminals;
 
 import prr.core.Network;
-import prr.core.NetworkManager;
-import prr.core.Terminal;
 import prr.core.exception.UnkTerminalIdException;
 
-import java.util.List;
 
 import prr.app.exception.UnknownTerminalKeyException;
 import pt.tecnico.uilib.menus.Command;

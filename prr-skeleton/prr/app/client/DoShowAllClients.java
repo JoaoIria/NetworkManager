@@ -1,9 +1,6 @@
 package prr.app.client;
 
-import java.util.LinkedList;
 import java.util.List;
-
-import prr.core.Client;
 import prr.core.Network;
 import java.util.ArrayList;
 import pt.tecnico.uilib.menus.Command;

@@ -7,7 +7,6 @@ import prr.core.exception.UnidentifiedClientKeyException;
 import prr.core.exception.UnkTerminalIdException;
 import prr.app.exception.UnknownClientKeyException;
 import prr.app.exception.UnknownTerminalKeyException;
-import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.CommandException;
 
 /**

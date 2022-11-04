@@ -2,15 +2,9 @@ package prr.core;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
-import javax.management.modelmbean.ModelMBean;
-
 import prr.core.exception.UnidentifiedClientKeyException;
-import prr.core.exception.InvTerminalKeyException;
-import prr.core.exception.UnkTerminalIdException;
 
 
 /**

@@ -43,6 +43,9 @@ public class NetworkManager {
     _loadFile = loadFile;
   }
 
+  public String getLoadFile(){
+    return _loadFile;
+  }
 
   /**
    * See if the file already has name.
