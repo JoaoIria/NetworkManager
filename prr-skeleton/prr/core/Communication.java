@@ -19,7 +19,7 @@ public abstract class Communication {
         incrementId();
     }
 
-        
+    /* ACRESCENTADO PELO AMADEU PODE ESTAR MAL */
     public static void incrementId(){
         _id +=1;
     }
