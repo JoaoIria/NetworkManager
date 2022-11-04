@@ -2,6 +2,7 @@ package prr.app.terminal;
 
 import prr.core.Network;
 import prr.core.Terminal;
+import prr.core.Notification;
 import prr.core.exception.UnidentifiedClientKeyException;
 import prr.core.exception.UnkTerminalIdException;
 import prr.app.exception.UnknownClientKeyException;
@@ -31,14 +32,17 @@ class DoStartInteractiveCommunication extends TerminalCommand {
       }
       else{
         if(_network.showTerminal(terminalKey).getTerminalMode().name().equals("OFF")){
+          _network.addWaitingNot(new Notification("O2I",_receiver.getTerminalID(),terminalKey));
           _display.add(Message.destinationIsOff(terminalKey));
           _display.display();
           return;}
         if(_network.showTerminal(terminalKey).getTerminalMode().name().equals("BUSY")){
+          _network.addWaitingNot(new Notification("B2I",_receiver.getTerminalID(),terminalKey));
           _display.add(Message.destinationIsBusy(terminalKey));
           _display.display();
           return;}
         if(_network.showTerminal(terminalKey).getTerminalMode().name().equals("SILENCE")){
+          _network.addWaitingNot(new Notification("S2I",_receiver.getTerminalID(),terminalKey));
           _display.add(Message.destinationIsSilent(terminalKey));
           _display.display();
           return;}
@@ -55,11 +59,13 @@ class DoStartInteractiveCommunication extends TerminalCommand {
               }
               else{
               _network.sendVideoCommunication(_receiver, terminalKey, 0);
+              _network.changeClientStatus(_network.findClientById(_receiver.getTerminalClientID()));
               return;
               }
             }
             case("VOICE"):{
               _network.sendVoiceCommunication(_receiver, terminalKey, 0);
+              _network.changeClientStatus(_network.findClientById(_receiver.getTerminalClientID()));
               return;
               }
             }

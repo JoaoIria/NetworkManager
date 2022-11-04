@@ -40,8 +40,8 @@ public class Notification{
 		if(NotificationType.B2I.name().equals(type)){
 			_notificationType = NotificationType.B2I;
 		}
-		if(NotificationType.B2S.name().equals(type)){
-			_notificationType = NotificationType.B2S;
+		if(NotificationType.S2I.name().equals(type)){
+			_notificationType = NotificationType.S2I;
 		}
 		if(NotificationType.O2I.name().equals(type)){
 			_notificationType = NotificationType.O2I;

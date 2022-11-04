@@ -37,13 +37,15 @@ class DoSendTextCommunication extends TerminalCommand {
       }
       else{
         if(_network.showTerminal(terminalKey).getTerminalMode().name().equals("OFF")){
-          _network.addNotifications(_receiver,new Notification("I2O",_receiver.getTerminalID(),terminalKey));
+          _network.addWaitingNot(new Notification("O2I",_receiver.getTerminalID(),terminalKey));
+          _network.addWaitingNot(new Notification("O2S",_receiver.getTerminalID(),terminalKey));
           _display.add(Message.destinationIsOff(terminalKey));
           _display.display();
           return;
         }
         else{
         _network.sendTextCommunication(_receiver, terminalKey, text);
+        _network.changeClientStatus(_network.findClientById(_receiver.getTerminalClientID()));
         return;
         }
       }

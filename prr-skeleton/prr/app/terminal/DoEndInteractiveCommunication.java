@@ -26,6 +26,7 @@ class DoEndInteractiveCommunication extends TerminalCommand {
       for(Communication c: _receiver.getCommunications()){
         if(c.getStatus().equals("ONGOING")){
           _network.endInteractiveCommunication(c.getType(), _receiver, duration);
+          _network.changeClientStatus(_network.findClientById(_receiver.getTerminalClientID()));
           _display.add(Message.communicationCost(Math.round(c.getCost())));
           _display.display();
           return;

@@ -47,6 +47,18 @@ public class Client implements Serializable, Comparable<Client>{
         return _level;
     }
 
+	public void setClientLevel(String level){
+		if(ClientLevel.NORMAL.name().equals(level)){
+            _level = ClientLevel.NORMAL;
+		}
+		if(ClientLevel.GOLD.name().equals(level)){
+			_level = ClientLevel.GOLD;
+		}
+		if(ClientLevel.PLATINUM.name().equals(level)){
+			_level = ClientLevel.PLATINUM;
+		}
+	}
+
     public String getClientName(){
         return _name;
     }

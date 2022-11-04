@@ -24,6 +24,7 @@ public class Network implements Serializable {
   private List <Client> _clients;
   private List <Terminal> _terminals;
   private List <Communication> _comunications;
+  private List <Notification> _waitingNotifications;
 
   /**
    * Constructor.
@@ -33,6 +34,7 @@ public class Network implements Serializable {
     _clients = new ArrayList<>();
     _terminals = new ArrayList<>();
     _comunications = new ArrayList<>();
+    _waitingNotifications = new ArrayList<>();
   }
 
  /**
@@ -100,11 +102,69 @@ public class Network implements Serializable {
     throw new UnidentifiedClientKeyException();
   }
 
-  /*public void sendNotification(Terminal t){
-    for(Notification n: t.getNotificiationsWai()){
-      if(showTerminal(n.getNotificationDepartureId()).getTerminalMode().name().equals(t)))
+
+
+
+  public void addWaitingNot(Notification n){
+    _waitingNotifications.add(n);
+  }
+
+
+  public void changeClientStatus(Client c){
+
+    switch(c.getClientLevel().name()){
+      case("NORMAL"):{
+        if((c.getPayments()-c.getDebts())>0){
+          c.setClientLevel("GOLD");
+          return;
+        }
+      }
+      case("GOLD"):{
+        if((c.getPayments()-c.getDebts())<0){
+          c.setClientLevel("NORMAL");
+          return;
+        }
+        else{
+          for(Terminal t:c.getTerminalList()){
+            if(t.getCommunications().size()>=5){
+              List <Communication> tmp = t.getCommunications().subList(t.getCommunications().size()-5, t.getCommunications().size());
+              int i=0;
+              for(Communication c2: tmp){
+                if(c2.getType().equals("VIDEO")){
+                  i++;
+                }
+              }
+              if(i == 5 && (c.getPayments()-c.getDebts())>0){
+                c.setClientLevel("PLATINUM");
+                }
+              }
+            }
+          }
+        }
+        case("PLATINUM"):{
+          if((c.getPayments()-c.getDebts())<0){
+            c.setClientLevel("NORMAL");
+            return;
+          }
+          for(Terminal t:c.getTerminalList()){
+              if(t.getCommunications().size()>=2){
+              List <Communication> tmp = t.getCommunications().subList(t.getCommunications().size()-5, t.getCommunications().size());
+              int i=0;
+              for(Communication c2: tmp){
+                if(c2.getType().equals("TEXT")){
+                  i++;
+                }
+              }
+              if(i == 2 && (c.getPayments()-c.getDebts())>0){
+                c.setClientLevel("GOLD");
+              }
+            }
+          }
+        }
+      }
     }
-  }*/
+
+
 
 
 
@@ -116,16 +176,6 @@ public class Network implements Serializable {
    * 
    * @return notification in terminal t
    */ 
-
-  public void addNotifications(Terminal t, Notification notification){
-    for(Client c: _clients){
-      if(c.getTerminalList().contains(t)){
-        if(c.getClientNotificationStatus() == true);
-        t.addWaitingNot(notification);
-      }
-    }
-  }
-
  /**
    * Clear all notifications from a specific terminal.
    * 
@@ -161,19 +211,19 @@ public class Network implements Serializable {
   }
 
 
-  /*public List<String> getNotificationsWaiting(String key){
+  public List<String> getNotificationsWaiting(String key){
 
 
     List<String> getNots = new ArrayList<>();
 
     for(Terminal t: _terminals){
       if(t.getTerminalClientID().equals(key)){
-        getNots.add(t.getNotificiations().toString());
+        getNots.add(t.getNotificiationsWaiting().toString());
         clearNotifications(t);
       }
     }
     return getNots;
-  }*/
+  }
 
    /**
    * Show all clients from the network.
@@ -271,12 +321,71 @@ public class Network implements Serializable {
   } 
 
   public void setTerminalIdle(String idTerminal) throws UnkTerminalIdException{
-    showTerminal(idTerminal).setOnIdle();
+    switch(showTerminal(idTerminal).getTerminalMode().name()){
+      case("OFF"):{
+        if(_waitingNotifications != null){
+          for(Notification n : _waitingNotifications){
+            if(n.getNotificationType().name().equals("O2I") && n.getNotificationArrivalId().equals(idTerminal)){
+              showTerminal(n.getNotificationDepartureId()).addNotification(n);
+            }
+          }
+          showTerminal(idTerminal).setOnIdle();
+          return;
+        }
+        else{
+          showTerminal(idTerminal).setOnIdle();
+          return;
+        }
+      }
+      case("SILENCE"):{
+        if(_waitingNotifications != null){
+          for(Notification n : _waitingNotifications){
+            if(n.getNotificationType().name().equals("S2I") && n.getNotificationArrivalId().equals(idTerminal)){
+              showTerminal(n.getNotificationDepartureId()).addNotification(n);
+            }
+          }
+          showTerminal(idTerminal).setOnIdle();
+          return;
+        }
+        else{
+          showTerminal(idTerminal).setOnIdle();
+          return;
+        }
+      }
+      case("BUSY"):{
+        if(_waitingNotifications != null){
+          for(Notification n : _waitingNotifications){
+            if(n.getNotificationType().name().equals("B2I") && n.getNotificationArrivalId().equals(idTerminal)){
+              showTerminal(n.getNotificationDepartureId()).addNotification(n);
+            }
+          }
+          showTerminal(idTerminal).setOnIdle();
+          return;
+        }
+        else{
+          showTerminal(idTerminal).setOnIdle();
+          return;
+        }
+      }
+    }
+
   }
 
   public void setTerminalSilence(String idTerminal) throws UnkTerminalIdException{
-    showTerminal(idTerminal).setOnSilent();
-  }
+    if(showTerminal(idTerminal).getTerminalMode().name().equals("OFF"))
+      for(Notification n : _waitingNotifications){
+        if(n.getNotificationType().name().equals("B2I") && n.getNotificationArrivalId().equals(idTerminal)){
+          showTerminal(n.getNotificationDepartureId()).addNotification(n);
+          showTerminal(idTerminal).setOnSilent();
+          return;
+        }
+      }
+      
+      else{
+        showTerminal(idTerminal).setOnSilent();
+        return;
+      }
+    }
 
 
    /**
@@ -654,6 +763,7 @@ public class Network implements Serializable {
         showTerminal(c.returnIDPartida()).setPaymentTerminal(c.getCost());
         findClientById(showTerminal(c.returnIDPartida()).getTerminalClientID()).setPaymentClient(c.getCost());
         c.setPayment();
+        changeClientStatus(findClientById(showTerminal(c.returnIDPartida()).getTerminalClientID()));
         return;
       }
     }

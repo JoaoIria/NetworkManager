@@ -151,6 +151,10 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
     return _notifications;
   }
 
+  public List <Notification> getNotificiationsWaiting(){
+    return _waitingNotifications;
+  }
+
 
   /**
    * Adds a Notification to the Terminal's List of Notifications
@@ -164,9 +168,7 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
     _notifications.add(n);
   }
 
-  public void addWaitingNot(Notification n){
-    _waitingNotifications.add(n);
-  }
+
 
 
   /**
