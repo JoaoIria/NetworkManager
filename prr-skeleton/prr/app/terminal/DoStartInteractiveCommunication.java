@@ -33,7 +33,7 @@ class DoStartInteractiveCommunication extends TerminalCommand {
       else{
         if(_network.showTerminal(terminalKey).getTerminalMode().name().equals("OFF")){
           _network.addWaitingNot(new Notification("O2I",_receiver.getTerminalID(),terminalKey));
-          _network.addWaitingNot(new Notification("S2I",_receiver.getTerminalID(),terminalKey));
+          _network.addWaitingNot(new Notification("O2S",_receiver.getTerminalID(),terminalKey));
           _display.add(Message.destinationIsOff(terminalKey));
           _display.display();
           return;}
