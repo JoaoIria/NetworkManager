@@ -1,0 +1,120 @@
+*** testsBoth/A-26-04-M-ok.out	2022-11-06 22:59:20.698714000 +0000
+--- testsBoth/A-26-04-M-ok.outhyp	2022-11-10 18:24:31.167343150 +0000
+***************
+*** 85,91 ****
+  0 - Sair
+  Escolha uma opção: 10
+  Duração da comunicação (em minutos): 1
+! Custo da comunicação: 30 unidades.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 85,91 ----
+  0 - Sair
+  Escolha uma opção: 10
+  Duração da comunicação (em minutos): 1
+! Custo da comunicação: 20 unidades.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 100,105 ****
+--- 100,106 ----
+  0 - Sair
+  Escolha uma opção: 6
+  Número da comunicação: 2
++ O identificador da comunicação é inválido.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 128,134 ****
+  0 - Sair
+  Escolha uma opção: 10
+  Duração da comunicação (em minutos): 10
+! Custo da comunicação: 200 unidades.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 129,135 ----
+  0 - Sair
+  Escolha uma opção: 10
+  Duração da comunicação (em minutos): 10
+! Custo da comunicação: 100 unidades.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 157,163 ****
+  0 - Sair
+  Escolha uma opção: 10
+  Duração da comunicação (em minutos): 1
+! Custo da comunicação: 20 unidades.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 158,164 ----
+  0 - Sair
+  Escolha uma opção: 10
+  Duração da comunicação (em minutos): 1
+! Custo da comunicação: 10 unidades.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 186,192 ****
+  0 - Sair
+  Escolha uma opção: 10
+  Duração da comunicação (em minutos): 1
+! Custo da comunicação: 20 unidades.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 187,193 ----
+  0 - Sair
+  Escolha uma opção: 10
+  Duração da comunicação (em minutos): 1
+! Custo da comunicação: 10 unidades.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 226,235 ****
+  0 - Sair
+  Escolha uma opção: 1
+  VOICE|1|969002|969001|23|460|FINISHED
+! VIDEO|2|969002|969006|1|30|FINISHED
+! VOICE|3|969002|969005|10|200|FINISHED
+! VOICE|4|969002|969006|1|20|FINISHED
+! VOICE|5|969002|969005|1|20|FINISHED
+  CONSULTAS
+  1 - Mostrar todas as comunicações
+  2 - Mostrar comunicações feitas por um cliente
+--- 227,236 ----
+  0 - Sair
+  Escolha uma opção: 1
+  VOICE|1|969002|969001|23|460|FINISHED
+! VIDEO|2|969002|969006|1|20|FINISHED
+! VOICE|3|969002|969005|10|100|FINISHED
+! VOICE|4|969002|969006|1|10|FINISHED
+! VOICE|5|969002|969005|1|10|FINISHED
+  CONSULTAS
+  1 - Mostrar todas as comunicações
+  2 - Mostrar comunicações feitas por um cliente
+***************
+*** 240,246 ****
+  7 - Mostrar terminais com saldo positivo
+  0 - Sair
+  Escolha uma opção: 7
+! FANCY|969002|cli002|IDLE|490|240
+  CONSULTAS
+  1 - Mostrar todas as comunicações
+  2 - Mostrar comunicações feitas por um cliente
+--- 241,247 ----
+  7 - Mostrar terminais com saldo positivo
+  0 - Sair
+  Escolha uma opção: 7
+! FANCY|969002|cli002|IDLE|460|140
+  CONSULTAS
+  1 - Mostrar todas as comunicações
+  2 - Mostrar comunicações feitas por um cliente

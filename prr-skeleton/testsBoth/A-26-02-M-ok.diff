@@ -1,0 +1,46 @@
+*** testsBoth/A-26-02-M-ok.out	2022-11-06 22:59:20.484574000 +0000
+--- testsBoth/A-26-02-M-ok.outhyp	2022-11-10 18:24:30.827347450 +0000
+***************
+*** 85,91 ****
+  0 - Sair
+  Escolha uma opção: 10
+  Duração da comunicação (em minutos): 1
+! Custo da comunicação: 30 unidades.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 85,91 ----
+  0 - Sair
+  Escolha uma opção: 10
+  Duração da comunicação (em minutos): 1
+! Custo da comunicação: 20 unidades.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 100,105 ****
+--- 100,106 ----
+  0 - Sair
+  Escolha uma opção: 6
+  Número da comunicação: 2
++ O identificador da comunicação é inválido.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 138,144 ****
+  7 - Mostrar terminais com saldo positivo
+  0 - Sair
+  Escolha uma opção: 7
+! FANCY|969002|cli002|IDLE|490|0
+  CONSULTAS
+  1 - Mostrar todas as comunicações
+  2 - Mostrar comunicações feitas por um cliente
+--- 139,145 ----
+  7 - Mostrar terminais com saldo positivo
+  0 - Sair
+  Escolha uma opção: 7
+! FANCY|969002|cli002|IDLE|460|20
+  CONSULTAS
+  1 - Mostrar todas as comunicações
+  2 - Mostrar comunicações feitas por um cliente

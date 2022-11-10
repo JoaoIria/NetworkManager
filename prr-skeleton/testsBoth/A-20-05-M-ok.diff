@@ -1,0 +1,56 @@
+*** testsBoth/A-20-05-M-ok.out	2022-11-06 22:59:16.167006000 +0000
+--- testsBoth/A-20-05-M-ok.outhyp	2022-11-10 18:24:24.783423394 +0000
+***************
+*** 86,91 ****
+--- 86,92 ----
+  0 - Sair
+  Escolha uma opção: 6
+  Número da comunicação: 2
++ O identificador da comunicação é inválido.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 99,105 ****
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 7
+! Valores para o terminal '969011':90 (pagamentos),  40 (dívidas).
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 100,106 ----
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 7
+! Valores para o terminal '969011':0 (pagamentos),  130 (dívidas).
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 114,119 ****
+--- 115,121 ----
+  0 - Sair
+  Escolha uma opção: 6
+  Número da comunicação: 1
++ O identificador da comunicação é inválido.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 127,133 ****
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 7
+! Valores para o terminal '969011':130 (pagamentos),  0 (dívidas).
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 129,135 ----
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 7
+! Valores para o terminal '969011':0 (pagamentos),  130 (dívidas).
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio

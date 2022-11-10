@@ -54,10 +54,12 @@ class DoStartInteractiveCommunication extends TerminalCommand {
               if(_network.showTerminal(terminalKey).getTerminalType().equals("BASIC")){
                 _display.add(Message.unsupportedAtDestination(terminalKey, commType));
                 _display.display();
+                return;
               }
               if(_receiver.getTerminalType().equals("BASIC")){
-                _display.add(Message.unsupportedAtOrigin(terminalKey, commType));
+                _display.add(Message.unsupportedAtOrigin(_receiver.getTerminalID(), commType));
                 _display.display();
+                return;
               }
               else{
               _network.sendVideoCommunication(_receiver, terminalKey, 0);

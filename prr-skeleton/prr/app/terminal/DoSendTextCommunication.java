@@ -26,31 +26,26 @@ class DoSendTextCommunication extends TerminalCommand {
     String text = stringField("message");
     
     try{
-      if(terminalKey.equals(_receiver.getTerminalID())){
+      if(_network.showTerminal(terminalKey).getTerminalMode().name().equals("OFF")){
+        _network.addWaitingNot(new Notification("O2I",_receiver.getTerminalID(),terminalKey));
+        _network.addWaitingNot(new Notification("O2S",_receiver.getTerminalID(),terminalKey));
+        _display.add(Message.destinationIsOff(terminalKey));
+        _display.display();
         return;
       }
       else{
-        if(_network.showTerminal(terminalKey).getTerminalMode().name().equals("OFF")){
-          _network.addWaitingNot(new Notification("O2I",_receiver.getTerminalID(),terminalKey));
-          _network.addWaitingNot(new Notification("O2S",_receiver.getTerminalID(),terminalKey));
-          _display.add(Message.destinationIsOff(terminalKey));
-          _display.display();
-          return;
-        }
-        else{
-        _network.sendTextCommunication(_receiver, terminalKey, text);
-        _network.changeClientStatus(_network.findClientById(_receiver.getTerminalClientID()));
-        return;
-        }
+      _network.sendTextCommunication(_receiver, terminalKey, text);
+      _network.changeClientStatus(_network.findClientById(_receiver.getTerminalClientID()));
+      return;
       }
     }catch(UnidentifiedClientKeyException ucke){
-      try {
-        throw new UnknownClientKeyException(_network.showTerminal(terminalKey).getTerminalClientID());
-      } catch (UnkTerminalIdException e) {
+        try {
+          throw new UnknownClientKeyException(_network.showTerminal(terminalKey).getTerminalClientID());
+        } catch (UnkTerminalIdException e) {
+          throw new UnknownTerminalKeyException(terminalKey);
+        }
+      }catch(UnkTerminalIdException utie){
         throw new UnknownTerminalKeyException(terminalKey);
       }
-    }catch(UnkTerminalIdException utie){
-      throw new UnknownTerminalKeyException(terminalKey);
-    }
   } 
 } 

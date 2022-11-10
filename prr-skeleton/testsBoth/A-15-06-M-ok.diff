@@ -1,0 +1,36 @@
+*** testsBoth/A-15-06-M-ok.out	2022-11-06 22:59:11.508060000 +0000
+--- testsBoth/A-15-06-M-ok.outhyp	2022-11-10 18:24:18.419502260 +0000
+***************
+*** 42,48 ****
+  0 - Sair
+  Escolha uma opção: 10
+  Duração da comunicação (em minutos): 20
+! Custo da comunicação: 200 unidades.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 42,48 ----
+  0 - Sair
+  Escolha uma opção: 10
+  Duração da comunicação (em minutos): 20
+! Custo da comunicação: 400 unidades.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 91,97 ****
+  0 - Sair
+  Escolha uma opção: 10
+  Duração da comunicação (em minutos): 30
+! Custo da comunicação: 450 unidades.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 91,97 ----
+  0 - Sair
+  Escolha uma opção: 10
+  Duração da comunicação (em minutos): 30
+! Custo da comunicação: 900 unidades.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio

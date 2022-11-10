@@ -139,7 +139,7 @@ public class Network implements Serializable {
 
     switch(c.getClientLevel().name()){
       case("NORMAL"):{
-        if((c.getPayments()-c.getDebts())>0){
+        if((c.getPayments()-c.getDebts())>500){
           c.setClientLevel("GOLD");
           return;
         }

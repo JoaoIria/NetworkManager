@@ -28,11 +28,11 @@ class DoPerformPayment extends TerminalCommand {
       if(c.getIDComms() == commKey){
         comm = c;
       }
-      else{
-        _display.add(Message.invalidCommunication());
-        _display.display();
-        return;
-      }
+    }
+    if(comm == null){
+      _display.add(Message.invalidCommunication());
+      _display.display();
+      return;
     }
 
     try{

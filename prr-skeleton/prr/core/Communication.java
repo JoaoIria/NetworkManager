@@ -1,6 +1,7 @@
 package prr.core;
+import java.io.Serializable;
 
-public abstract class Communication {
+public abstract class Communication implements Serializable{
     private int _id;
     private String _idChegada;
     private String _idPartida;

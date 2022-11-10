@@ -1,0 +1,29 @@
+*** testsBoth/A-23-02-M-ok.out	2022-11-06 22:59:18.352877000 +0000
+--- testsBoth/A-23-02-M-ok.outhyp	2022-11-10 18:24:27.787385772 +0000
+***************
+*** 104,109 ****
+--- 104,110 ----
+  0 - Sair
+  Escolha uma opção: 6
+  Número da comunicação: 1
++ O identificador da comunicação é inválido.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 142,148 ****
+  7 - Mostrar terminais com saldo positivo
+  0 - Sair
+  Escolha uma opção: 5
+! CLIENT|cli003|Pedro Oliveira|103449|NORMAL|YES|1|40|20
+  CONSULTAS
+  1 - Mostrar todas as comunicações
+  2 - Mostrar comunicações feitas por um cliente
+--- 143,149 ----
+  7 - Mostrar terminais com saldo positivo
+  0 - Sair
+  Escolha uma opção: 5
+! CLIENT|cli003|Pedro Oliveira|103449|NORMAL|YES|1|0|60
+  CONSULTAS
+  1 - Mostrar todas as comunicações
+  2 - Mostrar comunicações feitas por um cliente

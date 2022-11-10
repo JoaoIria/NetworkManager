@@ -1,0 +1,80 @@
+*** testsBoth/A-12-18-M-ok.out	2022-11-06 22:59:06.695944000 +0000
+--- testsBoth/A-12-18-M-ok.outhyp	2022-11-10 18:24:15.307540408 +0000
+***************
+*** 38,49 ****
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+! 8 - Enviar comunicação de texto
+! 9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 11
+! Não existe nenhuma comunicação em curso.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 38,48 ----
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+! 10 - Terminar comunicação activa
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 11
+! VIDEO|1|969014|969001|0|0|ONGOING
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 52,59 ****
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+! 8 - Enviar comunicação de texto
+! 9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 0
+--- 51,57 ----
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+! 10 - Terminar comunicação activa
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 0
+***************
+*** 63,69 ****
+  3 - Operações de terminal
+  0 - Sair
+  Escolha uma opção: 1
+! BASIC|969001|cli001|IDLE|0|0
+  BASIC|969002|cli001|IDLE|0|0
+  BASIC|969003|cli001|OFF|0|0
+  BASIC|969004|cli002|SILENCE|0|0
+--- 61,67 ----
+  3 - Operações de terminal
+  0 - Sair
+  Escolha uma opção: 1
+! BASIC|969001|cli001|BUSY|0|0
+  BASIC|969002|cli001|IDLE|0|0
+  BASIC|969003|cli001|OFF|0|0
+  BASIC|969004|cli002|SILENCE|0|0
+***************
+*** 74,80 ****
+  FANCY|969011|cli001|IDLE|0|0
+  FANCY|969012|cli001|OFF|0|0
+  FANCY|969013|cli001|SILENCE|0|0
+! FANCY|969014|cli002|IDLE|0|0
+  FANCY|969015|cli003|IDLE|0|0
+  GESTÃO DE TERMINAIS
+  1 - Mostrar todos os terminais
+--- 72,78 ----
+  FANCY|969011|cli001|IDLE|0|0
+  FANCY|969012|cli001|OFF|0|0
+  FANCY|969013|cli001|SILENCE|0|0
+! FANCY|969014|cli002|BUSY|0|0
+  FANCY|969015|cli003|IDLE|0|0
+  GESTÃO DE TERMINAIS
+  1 - Mostrar todos os terminais
