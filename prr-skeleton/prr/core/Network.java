@@ -25,7 +25,7 @@ public class Network implements Serializable {
   private List <Terminal> _terminals;
   private List <Communication> _comunications;
   private List <Notification> _waitingNotifications;
-
+  private int _commsNum = 1;
   /**
    * Constructor.
    */ 
@@ -136,11 +136,16 @@ public class Network implements Serializable {
 
 
   public void changeClientStatus(Client c){
-
+    List <Communication> aux = new ArrayList<>();
+    List <Communication> aux2 = new ArrayList<>();
+    int i=0;
     switch(c.getClientLevel().name()){
       case("NORMAL"):{
         if((c.getPayments()-c.getDebts())>500){
           c.setClientLevel("GOLD");
+          return;
+        }
+        else{
           return;
         }
       }
@@ -151,20 +156,28 @@ public class Network implements Serializable {
         }
         else{
           for(Terminal t:c.getTerminalList()){
-            if(t.getCommunications().size()>=5){
-              List <Communication> tmp = t.getCommunications().subList(t.getCommunications().size()-5, t.getCommunications().size());
-              int i=0;
-              for(Communication c2: tmp){
-                if(c2.getType().equals("VIDEO")){
-                  i++;
-                }
+            for(Communication comm: _comunications){
+              if(comm.returnIDPartida().equals(t.getTerminalID())){
+                aux.add(comm);
               }
-              if(i == 5 && (c.getPayments()-c.getDebts())>0){
-                c.setClientLevel("PLATINUM");
-                }
+            }  
+          }
+          if(aux.size() >= 5){
+            Collections.sort(aux);
+            List <Communication> tmp = aux.subList(aux.size()-5, aux.size());
+            i=0;
+            for(Communication c2: tmp){
+              if(c2.getType().equals("VIDEO")){
+                i++;
               }
             }
           }
+          if(i == 5 && (c.getPayments()-c.getDebts())>=0){
+            c.setClientLevel("PLATINUM");
+            return;
+            }
+          }
+          return;
         }
         case("PLATINUM"):{
           if((c.getPayments()-c.getDebts())<0){
@@ -172,18 +185,25 @@ public class Network implements Serializable {
             return;
           }
           for(Terminal t:c.getTerminalList()){
-              if(t.getCommunications().size()>=2){
-              List <Communication> tmp = t.getCommunications().subList(t.getCommunications().size()-5, t.getCommunications().size());
-              int i=0;
-              for(Communication c2: tmp){
-                if(c2.getType().equals("TEXT")){
-                  i++;
-                }
+            for(Communication comm: _comunications){
+              if(comm.returnIDPartida().equals(t.getTerminalID())){
+                aux2.add(comm);
               }
-              if(i == 2 && (c.getPayments()-c.getDebts())>0){
-                c.setClientLevel("GOLD");
+            }  
+          }
+          if(aux2.size() >= 2){
+            Collections.sort(aux2);
+            List <Communication> tmp = aux2.subList(aux2.size()-2, aux2.size());
+            i=0;
+            for(Communication c2: tmp){
+              if(c2.getType().equals("TEXT")){
+                i++;
               }
             }
+          }
+          if(i == 2 && (c.getPayments()-c.getDebts())>=0){
+            c.setClientLevel("GOLD");
+            return;
           }
         }
       }
@@ -391,6 +411,7 @@ public class Network implements Serializable {
       case("OFF"):{
         if(_waitingNotifications != null){
           List<Notification> toRemove = new ArrayList<>();
+          List<Notification> toRemoveRemove = new ArrayList<>();
           for(Notification wn: _waitingNotifications){
             if(wn.getNotificationArrivalId().equals(idTerminal)){
               toRemove.add(wn);
@@ -401,11 +422,17 @@ public class Network implements Serializable {
                   exists = true;
                 }
               }
+              for(Notification tr : toRemove){
+                if (!tr.getNotificationDepartureId().equals(wn.getNotificationDepartureId())){
+                  toRemoveRemove.add(tr);
+                }
+              }
               if(!exists && wn.getNotificationType().name().equals("O2I")){
                   dt.addNotification(wn);
               }
             }
           }
+          toRemove.removeAll(toRemoveRemove);
           _waitingNotifications.removeAll(toRemove);
           showTerminal(idTerminal).setOnIdle();
           return;
@@ -418,6 +445,7 @@ public class Network implements Serializable {
       case("SILENCE"):{
           if(_waitingNotifications != null){
             List<Notification> toRemove = new ArrayList<>();
+            List<Notification> toRemoveRemove = new ArrayList<>();
             for(Notification wn: _waitingNotifications){
               if(wn.getNotificationArrivalId().equals(idTerminal)){
                 toRemove.add(wn);
@@ -429,11 +457,17 @@ public class Network implements Serializable {
                     break;
                   }
                 }
+              for(Notification tr : toRemove){
+                if (!tr.getNotificationDepartureId().equals(wn.getNotificationDepartureId())){
+                  toRemoveRemove.add(tr);
+                }
+              }
                 if(!exists && wn.getNotificationType().name().equals("S2I")){
                   dt.addNotification(wn);
                 }
               }
             }
+            toRemove.removeAll(toRemoveRemove);
             _waitingNotifications.removeAll(toRemove);
   
           showTerminal(idTerminal).setOnIdle();
@@ -445,8 +479,10 @@ public class Network implements Serializable {
         }
       }
       case("BUSY"):{
+        System.out.println("1");
           if(_waitingNotifications != null){
             List<Notification> toRemove = new ArrayList<>();
+            List<Notification> toRemoveRemove = new ArrayList<>();
             for(Notification wn: _waitingNotifications){
               if(wn.getNotificationArrivalId().equals(idTerminal)){
                 toRemove.add(wn);
@@ -458,11 +494,19 @@ public class Network implements Serializable {
                     break;
                   }
                 }
+              System.out.println("2");
+              for(Notification tr : toRemove){
+                if (!tr.getNotificationDepartureId().equals(wn.getNotificationDepartureId())){
+                  toRemoveRemove.add(tr);
+                }
+              }
                 if(!exists && wn.getNotificationType().name().equals("B2I")){
+                  System.out.println("3");
                   dt.addNotification(wn);
                 }
               }
             }
+            toRemove.removeAll(toRemoveRemove);
             _waitingNotifications.removeAll(toRemove);
   
           showTerminal(idTerminal).setOnIdle();
@@ -925,20 +969,12 @@ public class Network implements Serializable {
    */ 
 
   public void sendTextCommunication(Terminal t,String key, String msg) throws UnkTerminalIdException, UnidentifiedClientKeyException{
-    Communication c = t.makeSMS(findClientById(t.getTerminalClientID()),showTerminal(key), msg);
-    if(t.getFriends().contains(key)){
-      findClientById(t.getTerminalClientID()).setDebtClient(c.getCost()/2);
-      t.setDebtTerminal(c.getCost()/2);
-      c.setCost(c.getCost()/2);
-      _comunications.add(c);
-      return;
-    }
-    else{
-      findClientById(t.getTerminalClientID()).setDebtClient(c.getCost());
-      t.setDebtTerminal(c.getCost());
-      _comunications.add(c);
-      return;
-    }
+    Communication c = t.makeSMS(findClientById(t.getTerminalClientID()),showTerminal(key), msg,_commsNum);
+    _commsNum ++;
+    findClientById(t.getTerminalClientID()).setDebtClient(c.getCost());
+    t.setDebtTerminal(c.getCost());
+    _comunications.add(c);
+    return;
   }
 
 
@@ -957,7 +993,8 @@ public class Network implements Serializable {
     t.setInicialTerminalMode(t.getTerminalMode());
     showTerminal(key).setInicialTerminalMode(showTerminal(key).getTerminalMode());
 
-    Communication c = t.makeVoiceCall(findClientById(t.getTerminalClientID()),showTerminal(key), duration);
+    Communication c = t.makeVoiceCall(findClientById(t.getTerminalClientID()),showTerminal(key), duration,_commsNum);
+    _commsNum ++;
     c.setStatus("ONGOING");
     c.setOnGoing(true);
     t.setOnBusy();
@@ -974,14 +1011,15 @@ public class Network implements Serializable {
    * @param int duration of the communication
    * 
    * @throws UnidentifiedClientKeyException if client id doesn't exist
-   * @throws UnkTerminalIdException if terminal id doesn't exist
+   * @throws UnkTerminalIdException if terminal id doesn't exist Rocky 
    */ 
 
   public void sendVideoCommunication(Terminal t,String key, int duration) throws UnkTerminalIdException, UnidentifiedClientKeyException{
     t.setInicialTerminalMode(t.getTerminalMode());
     showTerminal(key).setInicialTerminalMode(showTerminal(key).getTerminalMode());
 
-    Communication c = t.makeVideoCall(findClientById(t.getTerminalClientID()),showTerminal(key), duration);
+    Communication c = t.makeVideoCall(findClientById(t.getTerminalClientID()),showTerminal(key), duration,_commsNum);
+    _commsNum ++;
     c.setStatus("ONGOING");
     c.setOnGoing(true);
     t.setOnBusy();
@@ -1014,7 +1052,7 @@ public class Network implements Serializable {
               c.setDuration(duration);
               c.setStatus("FINISHED");
               vc.calculateVoiceCost(findClientById(t.getTerminalClientID()),duration);
-              if(t.getFriends().contains(s1)){
+              if(t.getFriends().contains(c.returnIDChegada())){
                 t.setDebtTerminal(c.getCost()/2);
                 findClientById(t.getTerminalClientID()).setDebtClient(c.getCost()/2);
                 c.setCost(c.getCost()/2);
@@ -1037,7 +1075,7 @@ public class Network implements Serializable {
               c.setDuration(duration);
               c.setStatus("FINISHED");
               vc.calculateVideoCost(findClientById(t.getTerminalClientID()),duration);
-              if(t.getFriends().contains(s1)){
+              if(t.getFriends().contains(c.returnIDChegada())){
                 t.setDebtTerminal(c.getCost()/2);
                 findClientById(t.getTerminalClientID()).setDebtClient(c.getCost()/2);
                 c.setCost(c.getCost()/2);

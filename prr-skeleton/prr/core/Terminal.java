@@ -268,23 +268,24 @@ abstract public class Terminal implements Serializable, Comparable<Terminal> {
   }
 
 
-  public Communication makeSMS(Client c,Terminal toTerminal, String text) throws UnidentifiedClientKeyException{
-    Communication comm = new TextCommunication(toTerminal.getTerminalID(),this.getTerminalID(),text, c);
+  public Communication makeSMS(Client c,Terminal toTerminal, String text,int CommId) throws UnidentifiedClientKeyException{
+    Communication comm = new TextCommunication(toTerminal.getTerminalID(),this.getTerminalID(),text, c,CommId);
     _comunications.add(comm);
     toTerminal._comunications.add(comm);
     return comm;
   }
 
-  public Communication makeVoiceCall(Client c, Terminal toTerminal, int duration) throws UnidentifiedClientKeyException{
-    Communication comm = new VoiceCommunication(toTerminal.getTerminalID(),this.getTerminalID(), c);
+  public Communication makeVoiceCall(Client c, Terminal toTerminal, int duration,int CommId) throws UnidentifiedClientKeyException{
+    Communication comm = new VoiceCommunication(toTerminal.getTerminalID(),this.getTerminalID(), c,CommId);
     _comunications.add(comm);
     toTerminal._comunications.add(comm);
     return comm;
   }
 
-  public Communication makeVideoCall(Client c, Terminal toTerminal, int duration) throws UnidentifiedClientKeyException{
-    Communication comm = new VideoCommunication(toTerminal.getTerminalID(),this.getTerminalID(), c);
+  public Communication makeVideoCall(Client c, Terminal toTerminal, int duration,int CommId) throws UnidentifiedClientKeyException{
+    Communication comm = new VideoCommunication(toTerminal.getTerminalID(),this.getTerminalID(), c,CommId);
     _comunications.add(comm);
+
     toTerminal._comunications.add(comm);
     return comm;
   }

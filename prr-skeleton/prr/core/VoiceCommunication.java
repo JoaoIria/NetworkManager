@@ -2,8 +2,8 @@ package prr.core;
 
 public class VoiceCommunication extends InteractiveCommunication{
     
-    public VoiceCommunication(String idChegada,String idPartida,Client c){
-        super(idChegada, idPartida);
+    public VoiceCommunication(String idChegada,String idPartida,Client c,int CommsId){
+        super(idChegada, idPartida,CommsId);
         calculateVoiceCost(c, this.getDuration());
         setType("VOICE");
     }

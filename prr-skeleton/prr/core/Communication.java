@@ -1,7 +1,7 @@
 package prr.core;
 import java.io.Serializable;
 
-public abstract class Communication implements Serializable{
+public abstract class Communication implements Serializable, Comparable<Communication>{
     private int _id;
     private String _idChegada;
     private String _idPartida;
@@ -11,20 +11,13 @@ public abstract class Communication implements Serializable{
     private String _status; /*ONGOING OU FINISHED */
     private int _duration;
     private String _type;
-    private static int _comNum;
 
 
-    public Communication(String idChegada,String idPartida){
+    public Communication(String idChegada,String idPartida, int id){
         _idChegada = idChegada;
         _idPartida = idPartida;
         _cost = 0;
-        incrementComNum();
-        _id = _comNum;
-    }
-
-
-    public static void incrementComNum(){
-        _comNum ++;
+        _id = id;
     }
 
     public void calculateVideoCost(){
@@ -97,15 +90,12 @@ public abstract class Communication implements Serializable{
         return _idChegada;
     }
     
-    /*@Override
-    public String toString(){
-        return(_type+"|"+Integer.toString(_id)+"|"+_idPartida+"|"+_idChegada+"|"+
-        String.valueOf(_units)+"|"+String.valueOf(_price)+"|"+_status);
-    }*/
+    public Communication getCommunication() {
+        return this;
+    }
 
-
-  public Communication getCommunication() {
-    return this;
-  }
-
+    @Override
+    public int compareTo(Communication c){
+        return String.valueOf(this._id).compareTo(String.valueOf(c._id));
+    }
 }

@@ -31,6 +31,7 @@ class DoStartInteractiveCommunication extends TerminalCommand {
       }
       else{
         if(_network.showTerminal(terminalKey).getTerminalMode().name().equals("OFF")){
+          _network.addWaitingNot(new Notification("B2I",_receiver.getTerminalID(),terminalKey));
           _network.addWaitingNot(new Notification("O2I",_receiver.getTerminalID(),terminalKey));
           _network.addWaitingNot(new Notification("O2S",_receiver.getTerminalID(),terminalKey));
           _display.add(Message.destinationIsOff(terminalKey));
@@ -43,6 +44,7 @@ class DoStartInteractiveCommunication extends TerminalCommand {
           _display.display();
           return;}
         if(_network.showTerminal(terminalKey).getTerminalMode().name().equals("SILENCE")){
+          _network.addWaitingNot(new Notification("B2I",_receiver.getTerminalID(),terminalKey));
           _network.addWaitingNot(new Notification("S2I",_receiver.getTerminalID(),terminalKey));
           _network.addWaitingNot(new Notification("O2I",_receiver.getTerminalID(),terminalKey));
           _display.add(Message.destinationIsSilent(terminalKey));
@@ -63,13 +65,11 @@ class DoStartInteractiveCommunication extends TerminalCommand {
               }
               else{
               _network.sendVideoCommunication(_receiver, terminalKey, 0);
-              _network.changeClientStatus(_network.findClientById(_receiver.getTerminalClientID()));
               return;
               }
             }
             case("VOICE"):{
               _network.sendVoiceCommunication(_receiver, terminalKey, 0);
-              _network.changeClientStatus(_network.findClientById(_receiver.getTerminalClientID()));
               return;
               }
             }

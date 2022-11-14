@@ -2,8 +2,8 @@ package prr.core;
 
 public class VideoCommunication extends InteractiveCommunication{
 
-    public VideoCommunication(String idChegada,String idPartida, Client c){
-        super(idChegada, idPartida);
+    public VideoCommunication(String idChegada,String idPartida, Client c,int CommsId){
+        super(idChegada, idPartida, CommsId);
         calculateVideoCost(c, this.getDuration());
         setType("VIDEO");
     }

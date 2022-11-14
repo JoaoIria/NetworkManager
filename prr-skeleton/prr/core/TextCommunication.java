@@ -6,8 +6,8 @@ public class TextCommunication extends Communication{
       * Constructor
       */ 
       
-    public TextCommunication(String idChegada,String idPartida, String message, Client c){ 
-        super(idChegada, idPartida);
+    public TextCommunication(String idChegada,String idPartida, String message, Client c,int CommsId){ 
+        super(idChegada, idPartida,CommsId);
         calculateTextCost(c, message);
         setStatus("FINISHED");
         _message = message;
