@@ -479,7 +479,6 @@ public class Network implements Serializable {
         }
       }
       case("BUSY"):{
-        System.out.println("1");
           if(_waitingNotifications != null){
             List<Notification> toRemove = new ArrayList<>();
             List<Notification> toRemoveRemove = new ArrayList<>();
@@ -494,14 +493,12 @@ public class Network implements Serializable {
                     break;
                   }
                 }
-              System.out.println("2");
               for(Notification tr : toRemove){
                 if (!tr.getNotificationDepartureId().equals(wn.getNotificationDepartureId())){
                   toRemoveRemove.add(tr);
                 }
               }
                 if(!exists && wn.getNotificationType().name().equals("B2I")){
-                  System.out.println("3");
                   dt.addNotification(wn);
                 }
               }
