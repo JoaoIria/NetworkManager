@@ -5,5 +5,7 @@
 
 Project made with **[João Iria](https://github.com/JoaoIria)**.
 
-
-#### ABOUT THE PROGRAM 
+How to compile: 
+```
+javac -cp po-uilib.jar:. `find prr -name "*.java"` or find prr -name "*.java" -print | xargs javac -cp po-uilib.jar:.
+```
