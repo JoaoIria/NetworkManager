@@ -27,3 +27,9 @@ How to run with import:
 ```
 java -Dimport=file.im -cp po-uilib.jar:. prr.app.App
 ```
+
+How to the tests: 
+```
+1) chmod +x runtests.sh
+2) ./runtests.sh
+```
