@@ -13,3 +13,13 @@ or
 ```
 find prr -name "*.java" -print | xargs javac -cp po-uilib.jar:.
 ```
+
+How to run: 
+```
+java -cp po-uilib.jar:. prr.app.App
+```
+
+How to run with import: 
+```
+java -Dimport=file.im -cp po-uilib.jar:. prr.app.App
+```
