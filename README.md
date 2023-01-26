@@ -7,7 +7,7 @@ Project made with **[João Iria](https://github.com/JoaoIria)**.
 
 
 
-###### About the program:
+###### Program Execution
 
 How to compile: 
 
