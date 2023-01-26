@@ -1,6 +1,0 @@
-{
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "prr-skeleton/po-uilib.jar"
-    ]
-}
