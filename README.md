@@ -5,4 +5,4 @@
 
 Project made with **[João Iria](https://github.com/JoaoIria)**.
 
-**_ ABOUT THE PROGRAM _**
+*_ ABOUT THE PROGRAM _*
