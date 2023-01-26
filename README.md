@@ -7,5 +7,7 @@ Project made with **[João Iria](https://github.com/JoaoIria)**.
 
 How to compile: 
 ```
-javac -cp po-uilib.jar:. `find prr -name "*.java"` or find prr -name "*.java" -print | xargs javac -cp po-uilib.jar:.
+javac -cp po-uilib.jar:. `find prr -name "*.java"`  
+                       or
+find prr -name "*.java" -print | xargs javac -cp po-uilib.jar:.
 ```
