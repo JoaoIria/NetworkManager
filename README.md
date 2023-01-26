@@ -10,26 +10,33 @@ Project made with **[João Iria](https://github.com/JoaoIria)**.
 ###### About the program:
 
 How to compile: 
+
 ```
-javac -cp po-uilib.jar:. `find prr -name "*.java"`
-```
-or
-```
-find prr -name "*.java" -print | xargs javac -cp po-uilib.jar:.
+  javac -cp po-uilib.jar:. `find prr -name "*.java"`
 ```
 
-How to run: 
+or
+
 ```
-java -cp po-uilib.jar:. prr.app.App
+  find prr -name "*.java" -print | xargs javac -cp po-uilib.jar:.
+```
+
+How to run:
+
+
+```
+  java -cp po-uilib.jar:. prr.app.App
 ```
 
 How to run with import: 
+
 ```
-java -Dimport=file.im -cp po-uilib.jar:. prr.app.App
+  java -Dimport=file.im -cp po-uilib.jar:. prr.app.App
 ```
 
 How to run the tests: 
+
 ```
-1) chmod +x runtests.sh
-2) ./runtests.sh
+  1) chmod +x runtests.sh
+  2) ./runtests.sh
 ```
